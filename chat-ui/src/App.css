@@ -1,0 +1,14 @@
+/* Reset default browser styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Overall layout container with three columns */
+.appContainer {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* (Conversations and EmailList styling are defined in their own CSS files) */

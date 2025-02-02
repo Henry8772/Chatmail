@@ -1,0 +1,36 @@
+.banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0; /* Light gray background */
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .banner-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .banner-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .banner-username {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .banner-right {
+    cursor: pointer;
+  }
+  
+  /* Optionally adjust the icon size and color */
+  .banner-settings {
+    width: 24px;
+    height: 24px;
+    color: #333;
+  }

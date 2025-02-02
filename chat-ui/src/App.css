@@ -5,10 +5,16 @@
   padding: 0;
 }
 
+.appWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 /* Overall layout container with three columns */
 .appContainer {
   display: flex;
-  min-height: 100vh;
+  flex: 1;
 }
 
 /* (Conversations and EmailList styling are defined in their own CSS files) */

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Conversations from './Conversations';
 import ChatArea from './ChatArea';
 import EmailList from './EmailList';
+import Banner from './Banner';  // Import the Banner component
 import './App.css';
 
 const ChatApp = () => {
@@ -33,7 +34,7 @@ const ChatApp = () => {
     }
   };
 
-  // Sample email data to be passed as parameter
+  // Sample email data
   const [emails] = useState([
     {
       id: 'e1',
@@ -61,23 +62,25 @@ const ChatApp = () => {
     },
   ]);
 
-
   return (
-    <div className="appContainer">
-      <Conversations
-        conversations={conversations}
-        selectedConversation={selectedConversation}
-        onSelectConversation={setSelectedConversation}
-      />
-      <ChatArea
-        messages={messages}
-        message={message}
-        setMessage={setMessage}
-        sendMessage={sendMessage}
-        summary={summary.summary}
-        suggestion={summary.suggestion}
-      />
-      <EmailList emails={emails} />
+    <div className="appWrapper">
+      <Banner />
+      <div className="appContainer">
+        <Conversations
+          conversations={conversations}
+          selectedConversation={selectedConversation}
+          onSelectConversation={setSelectedConversation}
+        />
+        <ChatArea
+          messages={messages}
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+          summary={summary.summary}
+          suggestion={summary.suggestion}
+        />
+        <EmailList emails={emails} />
+      </div>
     </div>
   );
 };

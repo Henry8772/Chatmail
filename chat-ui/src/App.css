@@ -1,20 +1,24 @@
-/* Reset default browser styles */
-* {
-  box-sizing: border-box;
+html, body {
   margin: 0;
   padding: 0;
 }
-
-.appWrapper {
+.chatApp {
   display: flex;
+  margin: 0;
+  padding: 0;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #121212; /* Dark background */
+  font-family: 'Inter', sans-serif;
+  color: #ccc; /* Light text */
 }
 
-/* Overall layout container with three columns */
-.appContainer {
+.chatAppContainer {
   display: flex;
   flex: 1;
+  gap: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
-/* (Conversations and EmailList styling are defined in their own CSS files) */
+/* We'll also tweak the other panels to be dark. */

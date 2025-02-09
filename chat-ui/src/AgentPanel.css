@@ -1,0 +1,105 @@
+.agentPanel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #1f1f1f; /* Dark background */
+    color: #ccc; /* Light text */
+    border-radius: 6px;
+    margin-left: 1rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  .agentHeader {
+    margin-bottom: 0.5rem;
+  }
+  
+  .agentHeader h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #fff;
+  }
+  
+  .eventSummary,
+  .eventSuggestion {
+    font-size: 0.9rem;
+    margin: 4px 0;
+    color: #aaa;
+  }
+  
+  .agentMessages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    border: 1px solid #444;
+    padding: 0.75rem;
+    border-radius: 6px;
+    background-color: #2a2a2a;
+  }
+  
+  .agentMessageBubble {
+    background-color: #333;
+    color: #ddd;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    max-width: 80%;
+    /* If you want different alignment for user vs agent, add logic or classes */
+  }
+  
+  .agentQuickReplies {
+    margin-bottom: 1rem;
+  }
+  
+  .replyButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+  }
+  
+  .replyButton {
+    background-color: #0066ff;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .replyButton:hover {
+    background-color: #004ec2;
+  }
+  
+  .agentInputArea {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .agentInputArea input {
+    flex: 1;
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 0.5rem;
+    color: #ccc;
+  }
+  
+  .agentInputArea input::placeholder {
+    color: #666;
+  }
+  
+  .sendButton {
+    background-color: #0066ff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .sendButton:hover {
+    background-color: #004ec2;
+  }

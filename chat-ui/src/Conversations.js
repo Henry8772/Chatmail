@@ -1,3 +1,4 @@
+//Conversations.js
 import React from 'react';
 import './Conversations.css';
 
@@ -9,7 +10,9 @@ const Conversations = ({ conversations, selectedConversation, onSelectConversati
         {conversations.map((convo) => (
           <li
             key={convo.id}
-            className={`conversationItem ${selectedConversation === convo.id ? 'active' : ''}`}
+            className={`conversationItem ${
+              selectedConversation === convo.id ? 'active' : ''
+            }`}
             onClick={() => onSelectConversation(convo.id)}
           >
             <div className="conversationName">{convo.name}</div>

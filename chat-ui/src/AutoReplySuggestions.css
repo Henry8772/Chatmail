@@ -1,0 +1,41 @@
+.autoReplyContainer {
+    background-color: #fff;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .autoReplyTitle {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .autoReplyTitle span {
+    font-weight: 400;
+    color: #666;
+    margin-left: 0.25rem;
+  }
+  
+  .autoReplyButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  /* Quick reply button styles */
+  .autoReplyButton {
+    background-color: #0066ff;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .autoReplyButton:hover {
+    background-color: #0052cc;
+  }

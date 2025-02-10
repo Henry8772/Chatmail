@@ -95,6 +95,9 @@ const Setting = ({ initialUser }) => {
         onPersonalityChange={handlePersonalityChange}
         onKnowledgeUpload={handleKnowledgeUpload}
       />
+
+      {/* Fake "Add Accounts" Button */}
+      <button className="add-accounts-button">Add Accounts</button>
     </div>
   );
 };

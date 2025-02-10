@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Router, Route } from 'wouter';
 import Banner from './Banner';
 import EventDashboard from './EventDashboard';
 import EmailList from './EmailList';
-import AgentPanel from './AgentPanel'; // NEW combined "chat + auto-reply" panel
+import AgentPanel from './AgentPanel';
+import Setting from './Setting'
 import './App.css';
 
 const ChatApp = () => {
@@ -76,7 +78,7 @@ const ChatApp = () => {
   const generateQuickRepliesForEvent = (event) => {
     if (!event) return [];
 
-    // Simple placeholder logic
+    // Simple placeholder logic based on the event title
     if (event.title === 'Job Applications') {
       return [
         'Send Updated CV',
@@ -101,7 +103,6 @@ const ChatApp = () => {
 
   return (
     <div className="chatApp">
-      <Banner />
       <div className="chatAppContainer">
         {/* LEFT PANEL: EventDashboard */}
         <EventDashboard
@@ -131,4 +132,24 @@ const ChatApp = () => {
   );
 };
 
-export default ChatApp;
+// A common layout component to display the banner and navigation links
+const Layout = ({ children }) => (
+  <div className="layout">
+    <Banner />
+    <div className="content">{children}</div>
+  </div>
+);
+
+// The main App component using wouter for routing
+const App = () => {
+  return (
+    <Router>
+      <Layout>
+        <Route path="/" component={ChatApp} />
+        <Route path="/setting" component={Setting} user/>
+      </Layout>
+    </Router>
+  );
+};
+
+export default App;

@@ -25,9 +25,24 @@
 }
 
 .banner-right {
-  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
+/* Email icon styles */
+.banner-email {
+  width: 24px;
+  height: 24px;
+  color: #ccc; /* Subtle icon color */
+  transition: color 0.2s;
+  margin-right: 20px; /* Increased spacing between email and settings icons */
+}
+
+.banner-email:hover {
+  color: #fff; /* Brighten icon on hover */
+}
+
+/* Settings icon styles */
 .banner-settings {
   width: 24px;
   height: 24px;

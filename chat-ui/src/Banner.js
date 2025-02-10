@@ -1,5 +1,6 @@
 import React from 'react';
-import { FaCog } from 'react-icons/fa';
+import { FaCog, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'wouter';
 import './Banner.css';
 
 const Banner = () => {
@@ -11,7 +12,14 @@ const Banner = () => {
         <span className="banner-username">ChatMail</span>
       </div>
       <div className="banner-right">
-        <FaCog className="banner-settings" />
+        {/* Email icon routes back to the home page (/) */}
+        <Link to="/">
+          <FaEnvelope className="banner-email" />
+        </Link>
+        {/* Settings icon routes to /setting */}
+        <Link to="/setting">
+          <FaCog className="banner-settings" />
+        </Link>
       </div>
     </div>
   );

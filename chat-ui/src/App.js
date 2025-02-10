@@ -146,7 +146,7 @@ const App = () => {
     <Router>
       <Layout>
         <Route path="/" component={ChatApp} />
-        <Route path="/setting" component={Setting} user/>
+        <Route path="/setting" component={Setting} />
       </Layout>
     </Router>
   );

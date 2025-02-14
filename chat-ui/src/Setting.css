@@ -4,19 +4,19 @@
     font-family: 'Inter', sans-serif;
     color: #ccc; /* Light text */
     min-height: 100vh;
-  }
+}
   
-  .setting-page .user-info {
+.setting-page .user-info {
     border-bottom: 1px solid #444;
     margin-bottom: 20px;
     padding-bottom: 10px;
-  }
+}
   
-  .setting-page .email-list {
+.setting-page .email-list {
     margin-top: 20px;
-  }
+}
   
-  .setting-page .email-item {
+.setting-page .email-item {
     border: 1px solid #333;
     padding: 15px;
     margin-bottom: 15px;
@@ -24,15 +24,15 @@
     background-color: #1e1e1e;
     color: #e0e0e0;
     max-width: 500px; /* Limit the maximum width */
-  }
+}
   
-  .setting-page .input-group {
+.setting-page .input-group {
     margin-top: 10px;
-  }
+}
   
-  /* Default styling for inputs inside input groups */
-  .setting-page .input-group input[type="text"],
-  .setting-page .input-group input[type="file"] {
+/* Default styling for inputs inside input groups */
+.setting-page .input-group input[type="text"],
+.setting-page .input-group input[type="file"] {
     display: block;
     margin-top: 5px;
     padding: 8px;
@@ -40,87 +40,106 @@
     max-width: 400px;
     background-color: #1e1e1e;
     color: #e0e0e0;
-  }
+}
   
-  .setting-page .input-group input[type="text"] {
+.setting-page .input-group input[type="text"] {
     border: 1px solid #444;
-  }
+}
   
-  .setting-page .input-group input[type="file"] {
+.setting-page .input-group input[type="file"] {
     background-color: #1e1e1e;
-  }
+}
   
-  /* Personality group: display label and input inline */
-  .setting-page .personality-group {
+/* Personality group: display label and input inline */
+.setting-page .personality-group {
     display: flex;
     align-items: center;
-  }
+}
   
-  .setting-page .personality-group label {
+.setting-page .personality-group label {
     margin-right: 8px;
     white-space: nowrap;
-  }
+}
   
-  .setting-page .personality-group input[type="text"] {
+.setting-page .personality-group input[type="text"] {
     display: inline-block;
     margin-top: 0;
     width: auto;
     flex: 1;
     max-width: 400px;
-  }
+}
   
-  /* Knowledge group: display label, file input, and upload info inline */
-  .setting-page .knowledge-group {
+/* Alias group: display label and input inline */
+.setting-page .alias-group {
     display: flex;
     align-items: center;
-  }
+}
   
-  .setting-page .knowledge-group label {
+.setting-page .alias-group label {
     margin-right: 8px;
     white-space: nowrap;
-  }
+}
   
-  .setting-page .knowledge-group input[type="file"] {
+.setting-page .alias-group input[type="text"] {
+    display: inline-block;
+    margin-top: 0;
+    width: auto;
+    flex: 1;
+    max-width: 400px;
+}
+  
+/* Knowledge group: display label, file input, and upload info inline */
+.setting-page .knowledge-group {
+    display: flex;
+    align-items: center;
+}
+  
+.setting-page .knowledge-group label {
+    margin-right: 8px;
+    white-space: nowrap;
+}
+  
+.setting-page .knowledge-group input[type="file"] {
     display: inline-block;
     margin-top: 0;
     width: auto;
     max-width: none;
-  }
+}
   
-  .setting-page .knowledge-group .upload-info {
+.setting-page .knowledge-group .upload-info {
     margin-left: 8px;
     font-size: 10px;
     color: #83ba52;
-  }
+}
   
-  /* Email icon styling */
-  .email-icon {
+/* Email icon styling */
+.email-icon {
     margin-right: 8px;
     vertical-align: middle;
     font-size: 1.2em; /* Adjust size if needed */
-  }
+}
   
-  /* Style the file upload button */
-  .setting-page .input-group input[type="file"]::file-selector-button {
+/* Style the file upload button */
+.setting-page .input-group input[type="file"]::file-selector-button {
     background-color: #666;
     color: #fff; /* Optional: change text color if needed */
     border: none;
     padding: 8px;
     cursor: pointer;
     border-radius: 4px;
-  }
+}
   
-  .setting-page .input-group input[type="file"]::-webkit-file-upload-button {
+.setting-page .input-group input[type="file"]::-webkit-file-upload-button {
     background-color: #666;
     color: #fff;
     border: none;
     padding: 8px;
     cursor: pointer;
     border-radius: 4px;
-  }
+}
   
-  /* Styles for the fake Add Accounts button */
-  .add-accounts-button {
+/* Styles for the fake Add Accounts button */
+.add-accounts-button {
     background-color: #666;
     color: #fff;
     border: none;
@@ -130,8 +149,8 @@
     font-size: 16px;
     margin-top: 20px;
     transition: background-color 0.3s ease;
-  }
+}
   
-  .add-accounts-button:hover {
+.add-accounts-button:hover {
     background-color: #555;
-  }
+}

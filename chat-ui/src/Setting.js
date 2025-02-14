@@ -3,7 +3,7 @@ import './Setting.css';
 import { MdEmail } from 'react-icons/md'; // Import the email icon
 
 // Component for a single email item
-const EmailItem = ({ email, onPersonalityChange, onKnowledgeUpload }) => {
+const EmailItem = ({ email, onPersonalityChange, onAliasChange, onKnowledgeUpload }) => {
   // Handle file selection change
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -28,6 +28,16 @@ const EmailItem = ({ email, onPersonalityChange, onKnowledgeUpload }) => {
         />
       </div>
 
+      {/* Alias field on the same line */}
+      <div className="input-group alias-group">
+        <label>Alias</label>
+        <input
+          type="text"
+          value={email.alias || ''}
+          onChange={(e) => onAliasChange(email.id, e.target.value)}
+        />
+      </div>
+
       {/* Knowledge field on the same line */}
       <div className="input-group knowledge-group">
         <label>Knowledge</label>
@@ -41,7 +51,7 @@ const EmailItem = ({ email, onPersonalityChange, onKnowledgeUpload }) => {
 };
 
 // Component for the email list
-const EmailList = ({ emails, onPersonalityChange, onKnowledgeUpload }) => {
+const EmailList = ({ emails, onPersonalityChange, onAliasChange, onKnowledgeUpload }) => {
   return (
     <div className="email-list">
       <h2>Accounts</h2>
@@ -50,6 +60,7 @@ const EmailList = ({ emails, onPersonalityChange, onKnowledgeUpload }) => {
           key={email.id}
           email={email}
           onPersonalityChange={onPersonalityChange}
+          onAliasChange={onAliasChange}
           onKnowledgeUpload={onKnowledgeUpload}
         />
       ))}
@@ -67,6 +78,16 @@ const Setting = ({ initialUser }) => {
       ...prevUser,
       emails: prevUser.emails.map((email) =>
         email.id === id ? { ...email, personality: newPersonality } : email
+      ),
+    }));
+  };
+
+  // Update alias for a given email
+  const handleAliasChange = (id, newAlias) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      emails: prevUser.emails.map((email) =>
+        email.id === id ? { ...email, alias: newAlias } : email
       ),
     }));
   };
@@ -93,6 +114,7 @@ const Setting = ({ initialUser }) => {
       <EmailList
         emails={user.emails}
         onPersonalityChange={handlePersonalityChange}
+        onAliasChange={handleAliasChange}
         onKnowledgeUpload={handleKnowledgeUpload}
       />
 
@@ -105,19 +127,21 @@ const Setting = ({ initialUser }) => {
 // Set default props in case no initialUser data is passed from the parent
 Setting.defaultProps = {
   initialUser: {
-    username: 'ChatMail User',
-    info: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    username: 'Alice',
+    info: 'A senior product manager at ChatMail',
     emails: [
       {
         id: 1,
         email: 'chatmail@gmail.com',
         personality: 'Personal and humorous',
+        alias: 'personal',
         knowledge: null,
       },
       {
         id: 2,
-        email: 'chatmail@ucl.ac.uk',
-        personality: 'A polite student',
+        email: 'product-manager@chatmail.com',
+        personality: 'A professional senior product manager',
+        alias: 'official',
         knowledge: null,
       },
     ],

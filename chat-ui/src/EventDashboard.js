@@ -21,7 +21,10 @@ const EventDashboard = ({ groupedEvents, selectedEventId, onSelectEvent }) => {
                 className={`eventItem ${selectedEventId === event.id ? 'active' : ''}`}
                 onClick={() => onSelectEvent(event.id)}
               >
-                <div className="eventTitle">{event.title}</div>
+                <div className="eventTitle">
+                  {event.title}
+                  <span className="eventAddress">@{event.account}</span>
+                </div>
                 <div className="eventDescription">{event.description}</div>
               </div>
             ))}

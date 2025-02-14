@@ -14,6 +14,7 @@ const ChatApp = () => {
       id: 'ev1',
       title: 'Job Applications',
       description: 'Emails related to ongoing job applications',
+      account: 'personal',
       emails: [
         {
           id: 'e1',
@@ -39,6 +40,25 @@ const ChatApp = () => {
       id: 'ev2',
       title: 'Meeting with Dr. Who',
       description: 'Emails & tasks for upcoming meeting',
+      account: 'personal',
+      emails: [
+        {
+          id: 'e3',
+          sender: 'Dr. Who',
+          subject: 'Re: Meeting Details',
+          snippet: 'Let’s schedule a conversation next Tuesday',
+          time: 'Yesterday',
+          category: 'Meetings',
+        },
+      ],
+      summary: 'Dr. Who is requesting a meeting next week to discuss your research.',
+      suggestion: 'Propose a few time slots or request a topic agenda.',
+    },
+    {
+      id: 'ev4',
+      title: 'ChatMail Product Launch',
+      description: 'Emails & tasks for upcoming meeting',
+      account: 'official',
       emails: [
         {
           id: 'e3',
@@ -132,7 +152,6 @@ const ChatApp = () => {
         />
 
         {/* MIDDLE: Conditionally render EmailList */}
-        {showEmailList && <EmailList emails={currentEvent?.emails || []} />}
 
         {/* RIGHT PANEL: AgentPanel with toggle props */}
         <AgentPanel
@@ -146,6 +165,8 @@ const ChatApp = () => {
           emailListVisible={showEmailList}
           toggleEmailList={toggleEmailList}
         />
+
+        {showEmailList && <EmailList emails={currentEvent?.emails || []} />}
       </div>
     </div>
   );

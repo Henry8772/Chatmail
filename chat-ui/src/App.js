@@ -102,7 +102,7 @@ const ChatApp = () => {
   const eventQuickReplies = generateQuickRepliesForEvent(currentEvent);
 
   // 8. NEW: Control visibility of the EmailList
-  const [showEmailList, setShowEmailList] = useState(true);
+  const [showEmailList, setShowEmailList] = useState(false);
   const toggleEmailList = () => setShowEmailList((prev) => !prev);
 
   return (

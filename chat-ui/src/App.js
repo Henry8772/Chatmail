@@ -18,6 +18,8 @@ const ChatApp = () => {
       emails: [
         {
           id: 'e1',
+          type: 'inbox',
+          receiver: 'you',
           sender: 'Google HR',
           subject: 'Opportunity at Google',
           snippet: 'We are impressed by your credentials...',
@@ -26,6 +28,8 @@ const ChatApp = () => {
         },
         {
           id: 'e2',
+          type: 'inbox',
+          receiver: 'you',
           sender: 'Microsoft HR',
           subject: 'Your Application at Microsoft',
           snippet: 'Your profile matches our requirements...',
@@ -44,6 +48,8 @@ const ChatApp = () => {
       emails: [
         {
           id: 'e3',
+          type: 'inbox',
+          receiver: 'you',
           sender: 'Dr. Who',
           subject: 'Re: Meeting Details',
           snippet: 'Let’s schedule a conversation next Tuesday',
@@ -57,16 +63,28 @@ const ChatApp = () => {
     {
       id: 'ev4',
       title: 'ChatMail Product Launch',
-      description: 'Emails & tasks for upcoming meeting',
+      description: 'Emails & tasks for ChatMail product',
       account: 'official',
       emails: [
         {
-          id: 'e3',
-          sender: 'Dr. Who',
-          subject: 'Re: Meeting Details',
-          snippet: 'Let’s schedule a conversation next Tuesday',
+          id: 'e4',
+          type: 'inbox',
+          receiver: 'you',
+          sender: 'Boss',
+          subject: 'We need to build a new feature',
+          snippet: 'We should build the fanciest email client ever',
           time: 'Yesterday',
-          category: 'Meetings',
+          category: 'Product',
+        },
+        {
+          id: 'e5',
+          type: 'sent',
+          receiver: 'Developer Team',
+          sender: 'you',
+          subject: 'We need to build a new feature',
+          snippet: 'We should build the fanciest email client ever',
+          time: 'Yesterday',
+          category: 'Product',
         },
       ],
       summary: 'Dr. Who is requesting a meeting next week to discuss your research.',

@@ -13,6 +13,32 @@
   font-weight: 600;
 }
 
+/* Folder switch styling */
+.folderSwitch {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.folderButton {
+  flex: 1;
+  padding: 0.5rem;
+  background-color: #2a2a2a;
+  border: none;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.folderButton.active {
+  background-color: #004ec2;
+  color: #fff;
+}
+
+.folderButton:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
 .emailListItems {
   list-style: none;
   padding: 0;
@@ -39,6 +65,11 @@
   font-weight: 500;
   margin-bottom: 0.25rem;
   color: #fff;
+}
+
+.emailPrefix {
+  color: #aaa;
+  font-weight: 300;
 }
 
 .emailDetails {

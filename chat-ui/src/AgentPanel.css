@@ -103,3 +103,28 @@
   .sendButton:hover {
     background-color: #004ec2;
   }
+
+/* Container for the react-toggle switch */
+.toggleEmailList {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.toggleText {
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* Override react-toggle checked color */
+.react-toggle--checked .react-toggle-track {
+  background-color: #004ec2;
+  border-color: #004ec2;
+}
+
+/* Override react-toggle hover color when checked */
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #004ec2 !important;
+  border-color: #004ec2 !important;
+}

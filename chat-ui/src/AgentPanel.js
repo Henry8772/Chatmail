@@ -1,4 +1,6 @@
 import React from 'react';
+import Toggle from 'react-toggle';
+import "react-toggle/style.css";
 import './AgentPanel.css';
 
 const AgentPanel = ({
@@ -9,6 +11,8 @@ const AgentPanel = ({
   setMessage,
   onSendMessage,
   quickReplies,
+  emailListVisible,
+  toggleEmailList,
 }) => {
   if (!event) {
     return (
@@ -29,6 +33,18 @@ const AgentPanel = ({
         <h3>{event.title}</h3>
         <p className="eventSummary">{event.summary}</p>
         <p className="eventSuggestion">Suggestion: {event.suggestion}</p>
+      </div>
+
+      {/* React Toggle to control EmailList visibility */}
+      <div className="toggleEmailList">
+        <span className="toggleText">
+          {emailListVisible ? "Hide Email List" : "Show Email List"}
+        </span>
+        <Toggle
+          checked={emailListVisible}
+          onChange={toggleEmailList}
+          icons={false}
+        />
       </div>
 
       <div className="agentMessages">

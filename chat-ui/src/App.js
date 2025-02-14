@@ -4,7 +4,7 @@ import Banner from './Banner';
 import EventDashboard from './EventDashboard';
 import EmailList from './EmailList';
 import AgentPanel from './AgentPanel';
-import Setting from './Setting'
+import Setting from './Setting';
 import './App.css';
 
 const ChatApp = () => {
@@ -101,6 +101,10 @@ const ChatApp = () => {
   // 7. Quick replies for this event
   const eventQuickReplies = generateQuickRepliesForEvent(currentEvent);
 
+  // 8. NEW: Control visibility of the EmailList
+  const [showEmailList, setShowEmailList] = useState(true);
+  const toggleEmailList = () => setShowEmailList((prev) => !prev);
+
   return (
     <div className="chatApp">
       <div className="chatAppContainer">
@@ -111,13 +115,10 @@ const ChatApp = () => {
           onSelectEvent={setSelectedEventId}
         />
 
-        {/* MIDDLE/RIGHT: 
-            You can choose if you still want to see EmailList on the right, 
-            or shrink it, or remove it. Here we keep it for clarity. 
-        */}
-        <EmailList emails={currentEvent?.emails || []} />
+        {/* MIDDLE: Conditionally render EmailList */}
+        {showEmailList && <EmailList emails={currentEvent?.emails || []} />}
 
-        {/* COMBINED AGENT PANEL: summary + messages + quick replies */}
+        {/* RIGHT PANEL: AgentPanel with the toggle props */}
         <AgentPanel
           event={currentEvent}
           messages={messages}
@@ -126,6 +127,8 @@ const ChatApp = () => {
           setMessage={setMessage}
           onSendMessage={sendMessage}
           quickReplies={eventQuickReplies}
+          emailListVisible={showEmailList}
+          toggleEmailList={toggleEmailList}
         />
       </div>
     </div>

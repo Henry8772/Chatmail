@@ -78,7 +78,6 @@ const ChatApp = () => {
   const generateQuickRepliesForEvent = (event) => {
     if (!event) return [];
 
-    // Simple placeholder logic based on the event title
     if (event.title === 'Job Applications') {
       return [
         'Send Updated CV',
@@ -101,16 +100,33 @@ const ChatApp = () => {
   // 7. Quick replies for this event
   const eventQuickReplies = generateQuickRepliesForEvent(currentEvent);
 
-  // 8. NEW: Control visibility of the EmailList
+  // 8. Group events by category in App.js
+  const groupedEvents = events.reduce((acc, event) => {
+    let group = '';
+    if (event.title === 'Job Applications') {
+      group = 'High Priority';
+    } else if (event.title === 'Meeting with Dr. Who') {
+      group = 'Followup';
+    } else {
+      group = 'Other';
+    }
+    if (!acc[group]) {
+      acc[group] = [];
+    }
+    acc[group].push(event);
+    return acc;
+  }, {});
+
+  // 9. Control visibility of the EmailList
   const [showEmailList, setShowEmailList] = useState(false);
   const toggleEmailList = () => setShowEmailList((prev) => !prev);
 
   return (
     <div className="chatApp">
       <div className="chatAppContainer">
-        {/* LEFT PANEL: EventDashboard */}
+        {/* LEFT PANEL: EventDashboard (using groupedEvents) */}
         <EventDashboard
-          events={events}
+          groupedEvents={groupedEvents}
           selectedEventId={selectedEventId}
           onSelectEvent={setSelectedEventId}
         />
@@ -118,7 +134,7 @@ const ChatApp = () => {
         {/* MIDDLE: Conditionally render EmailList */}
         {showEmailList && <EmailList emails={currentEvent?.emails || []} />}
 
-        {/* RIGHT PANEL: AgentPanel with the toggle props */}
+        {/* RIGHT PANEL: AgentPanel with toggle props */}
         <AgentPanel
           event={currentEvent}
           messages={messages}

@@ -2,12 +2,31 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+/* App.css */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+}
+
+.content {
+  flex: 1; /* Takes the remaining space after Banner */
+  overflow: auto; /* Optional: allows scrolling if content overflows */
+}
+
 .chatApp {
   display: flex;
   margin: 0;
   padding: 0;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
   background-color: #121212; /* Dark background */
   font-family: 'Inter', sans-serif;
   color: #ccc; /* Light text */

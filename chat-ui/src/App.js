@@ -139,6 +139,7 @@ const Layout = ({ children }) => (
 
 // The main App component using wouter for routing
 const App = () => {
+  
   return (
     <Router>
       <Layout>

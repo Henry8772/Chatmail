@@ -128,3 +128,27 @@
   background-color: #004ec2 !important;
   border-color: #004ec2 !important;
 }
+
+.summaryText {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.suggestionText {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.summaryIcon {
+  color: #333;
+  margin-right: 4px;
+  font-size: 1.2rem;
+}
+
+.suggestionIcon {
+  color: #f0a500;
+  margin-right: 4px;
+  font-size: 1.2rem;
+}

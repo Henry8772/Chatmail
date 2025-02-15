@@ -15,7 +15,7 @@ const ChatApp = () => {
   // 2. Set up a state variable for events, initially empty
   const [events, setEvents] = useState([]);
 
-  // 3. Load the data.json content into the `events` state on component mount
+  // 3. Load the data.json content into the events state on component mount
   useEffect(() => {
     setEvents(data);
   }, []);
@@ -24,23 +24,52 @@ const ChatApp = () => {
   const [selectedEventId, setSelectedEventId] = useState('ev1');
 
   // 3. MESSAGES + USER INPUT
-  const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  //
+  // Now `messages` is a dictionary (object) where:
+  // {
+  //    ev1: [ { id: ..., text: ...}, { ... } ],
+  //    ev2: [ ... ],
+  //    ...
+  // }
+  const [messages, setMessages] = useState({});
 
   // 4. SENDING A MESSAGE (example)
-  const sendMessage = () => {
-    if (message.trim()) {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { id: Date.now().toString(), text: message },
-      ]);
-      setMessage('');
+  const sendMessage = (message, role) => {
+
+    
+    const totalPrefixLength = 6;
+
+    // 3. Calculate how many hyphens are needed
+    let neededHyphens = totalPrefixLength - role.length;
+    if (neededHyphens < 0) {
+      neededHyphens = 0; // Avoid negative if role is longer than 6
     }
+
+    // 4. Build the prefix: e.g., "AI----" or "USER--"
+    const prefix = role + "%".repeat(neededHyphens);
+
+    // 5. Combine prefix + actual message
+    const finalMessage = `${prefix} ${message}`;
+
+    // We'll create or update the array of messages for the currently selected event
+    setMessages((prevMessages) => {
+      const currentMessages = prevMessages[selectedEventId] || [];
+      return {
+        ...prevMessages,
+        [selectedEventId]: [
+          ...currentMessages,
+          { id: Date.now().toString(), text: finalMessage },
+        ],
+      };
+    });
+    console.log("messages", messages);
+    
   };
 
   // 5. Generate “event-level” quick replies
   const generateQuickRepliesForEvent = (event) => {
     if (!event) return [];
+    // Your logic for generating quick replies here
     return [];
   };
 
@@ -71,6 +100,9 @@ const ChatApp = () => {
   const [showEmailList, setShowEmailList] = useState(false);
   const toggleEmailList = () => setShowEmailList((prev) => !prev);
 
+  // Because `messages` is an object keyed by eventId, pass the messages for the current event:
+  const currentEventMessages = messages[selectedEventId] || [];
+
   return (
     <div className="chatApp">
       <div className="chatAppContainer">
@@ -81,16 +113,12 @@ const ChatApp = () => {
           onSelectEvent={setSelectedEventId}
         />
 
-
         {/* MIDDLE PANEL: AgentPanel with toggle props */}
         <AgentPanel
           event={currentEvent}
-          messages={messages}
-          setMessages={setMessages}
-          message={message}
-          setMessage={setMessage}
-          onSendMessage={sendMessage}
-          quickReplies={eventQuickReplies}
+          messages={currentEventMessages}
+          sendMessage={sendMessage}
+          // quickReplies={eventQuickReplies}
           emailListVisible={showEmailList}
           toggleEmailList={toggleEmailList}
         />
@@ -116,10 +144,15 @@ const App = () => {
       <Layout>
         <Route path="/" component={ChatApp} />
         <Route path="/setting" component={Setting} />
-        <Route path="/meeting" component={() => <Meeting
-          videoUrl="assets/test.mp4"
-          audioUrl="assets/test.mp3"
-        />} />
+        <Route 
+          path="/meeting" 
+          component={() => (
+            <Meeting
+              videoUrl="assets/test.mp4"
+              audioUrl="assets/test.mp3"
+            />
+          )}
+        />
       </Layout>
     </Router>
   );

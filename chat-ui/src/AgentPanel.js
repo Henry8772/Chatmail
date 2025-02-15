@@ -13,10 +13,7 @@ import { uploadEmailsToRagie, retrieveRelevantChunks } from "./ragie_caller";
 const AgentPanel = ({
   event,
   messages,
-  setMessages,
-  message,
-  setMessage,
-  onSendMessage,
+  sendMessage,
   emailListVisible,
   toggleEmailList,
 }) => {
@@ -25,6 +22,8 @@ const AgentPanel = ({
     suggestion: "",
     replies: [],
   });
+  const [message, setMessage] = useState('');
+
 
   const [isChatLoading, setIsChatLoading] = useState(false);
 
@@ -110,21 +109,15 @@ const AgentPanel = ({
   // 3) Summarize on-demand
   // -----------------------------
   const handleSendMessage = async () => {
-    const trimmedMessage = message.trim().toLowerCase();
 
-    if (trimmedMessage === "/summarize") {
-      const newData = await fetchOpenAIResponse(event.summary || "");
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          text: `Summary: ${newData.summary}\nSuggestion: ${newData.suggestion}\nReplies: ${newData.replies.join(", ")}`,
-        },
-      ]);
-      setMessage("");
-    } else {
-      onSendMessage();
-    }
+    sendMessage(message, "USER");
+
+    const newData = await fetchOpenAIResponse(event.summary + "\n" +  message);
+      
+
+    sendMessage(newData, "AI");
+    
+  
   };
 
   // -----------------------------
@@ -138,6 +131,10 @@ const AgentPanel = ({
 
     try {
       setIsLoading(true);
+
+      sendMessage(actionText, 'USER');
+
+
 
       // 4a) Query Ragie for relevant chunks
       const chunkText = await retrieveRelevantChunks(actionText);
@@ -161,13 +158,11 @@ const AgentPanel = ({
       });
 
       // 4c) Add the GPT draft to the conversation
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          text: `**Draft Reply:**\n${draftReply}`,
-        },
-      ]);
+
+
+      sendMessage(draftReply, "AI");
+      
+
     } catch (err) {
       console.error("Error retrieving from Ragie or drafting reply:", err);
     } finally {

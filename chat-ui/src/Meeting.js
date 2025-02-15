@@ -30,18 +30,21 @@ const Meeting = ({ videoUrl, audioUrl }) => {
 
       {/* Video Section */}
       <div className="video-section">
-        <ReactPlayer
-          className="video-player"
-          url={videoUrl} // URL passed as a prop
-          controls
-          playing={false}
-        />
+        <div className="video-wrapper">
+          <ReactPlayer
+            url={videoUrl}
+            controls
+            playing={false}
+            width="100%"  // Fill the wrapper
+            height="100%" // Fill the wrapper
+          />
+        </div>
       </div>
 
       {/* Audio Section */}
       <div className="audio-section">
         <ReactPlayer
-          url={audioUrl} // URL passed as a prop
+          url={audioUrl}
           controls
           playing={false}
           width="100%"

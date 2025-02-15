@@ -91,9 +91,11 @@ const AgentPanel = ({
 
   // On event load, do quick summarization
   useEffect(() => {
-    if (event && event.summary) {
+    if (event && event.emails) {
       (async () => {
-        const newData = await fetchOpenAIResponse(event.summary);
+        const newData = await fetchOpenAIResponse(event.emails
+          .map(email => email.content)
+          .join(' '));
         setOpenAIResponse(newData);
       })();
     }

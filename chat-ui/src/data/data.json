@@ -27,9 +27,7 @@
         "time": "11:45 AM",
         "category": "Job Applications"
         }
-    ],
-    "summary": "Google and Microsoft are both showing interest in your profile.",
-    "suggestion": "You might follow up with your updated CV."
+    ]
     },
     {
         "id": "ev2",
@@ -104,9 +102,7 @@
         "time": "2024-02-10T09:00:00Z",
         "category": "Engineering"
       }
-    ],
-    "summary": "The Scrum Master has requested a review and confirmation of Sprint task priorities and resource allocation.",
-    "suggestion": "Confirm Sprint priorities, check for resource conflicts, and escalate any blockers."
+    ]
   },
   {
     "id": "multi_company_collaboration_project_dark_mode",
@@ -248,7 +244,7 @@
         "category": "Engineering"
       }
     ],
-    "summary": "The emails detail collaborative interactions between Nova AI Technologies, Quantum Insights, and Visionary Tech regarding the development of an AI-powered dashboard. The discussions include project proposals, task assignments, and scheduling meetings to finalize requirements and next steps.",
-    "suggestion": "Continue engaging with both Quantum Insights and Visionary Tech to finalize project specifications. Ensure that engineering and design teams are prepared for upcoming deadlines while also managing communication with any external outsourcing companies involved."
+    "summary": "Quantum Insights is seeking to develop an AI-powered data dashboard for real-time analytics, supporting 50-100 users, and is considering AWS as the cloud platform. Visionary Tech is also interested in collaboration for enhancing analytics capabilities and has requested a meeting. Both teams are looking to discuss integration of various data metrics and predictive analytics features.",
+    "suggestion": "Schedule a technical meeting to discuss both proposals and explore collaboration opportunities."
   }
 ]

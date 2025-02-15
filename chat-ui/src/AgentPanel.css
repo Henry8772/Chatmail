@@ -75,10 +75,15 @@
   border-color: #004ec2 !important;
 }
 
-/* Chat Messages Container */
 .chatMessages {
-  flex: 1;
+  /* Option A: fixed height */
+  height: 430px;
   overflow-y: auto;
+
+  /* Option B: flexible but with max-height */
+  /* max-height: 500px; */
+  /* overflow-y: auto; */
+
   margin-bottom: 1rem;
   border: 1px solid #444;
   padding: 0.75rem;

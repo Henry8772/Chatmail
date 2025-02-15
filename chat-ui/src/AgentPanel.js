@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import "./AgentPanel.css";
@@ -22,6 +22,16 @@ const AgentPanel = ({
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [ragieUploaded, setRagieUploaded] = useState(false);
+  const [replies, setReplies] = useState([]);
+
+  const messagesEndRef = useRef(null);
+
+  // 2. Whenever messages (or isChatLoading) changes, scroll the chat to the bottom
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, isChatLoading]);
 
   // Upload emails to Ragie
   useEffect(() => {
@@ -93,7 +103,7 @@ const AgentPanel = ({
   const handleSendMessage = async () => {
     // 1) Send the newly typed user message
     sendMessage(message, "USER");
-  
+
     // 2) Build conversation array from ALL messages so far
     const conversationHistory = messages
       .map((m) => {
@@ -105,17 +115,17 @@ const AgentPanel = ({
         return null;
       })
       .filter(Boolean);
-  
+
     // Also push the brand-new user message
     conversationHistory.push({ role: "user", content: message });
-  
+
     // 3) Call your LLM with the complete conversation
     try {
       setIsChatLoading(true);
-  
+
       const systemPrompt = `You are a helpful assistant who strictly returns valid answers.
 Do not include additional commentary. Just answer.`;
-  
+
       const assistantMessage = await getOpenAiChatCompletion({
         systemPrompt,
         conversation: conversationHistory,
@@ -123,7 +133,7 @@ Do not include additional commentary. Just answer.`;
         maxTokens: 300,
         temperature: 0.7,
       });
-  
+
       // 4) Send the assistant's new message
       sendMessage(assistantMessage, "AI");
     } catch (error) {
@@ -152,14 +162,20 @@ Do not include additional commentary. Just answer.`;
       const chunkText = JSON.stringify(event.emails.slice(-5));
 
       // Use chunkText + user actionText to get GPT to draft a reply
-      const systemPrompt = `You are "Chatmail AI", a friendly AI assistant. 
-      Here is all the information from the relevant documents:
-      ===
-      ${chunkText}
-      ===
-      The user wants to craft an email reply based on the above. 
-      Draft a concise, polite, and professional email response. 
-      Write your answer as pure text (no JSON).`;
+      const systemPrompt = `You are "Chatmail AI," a friendly AI assistant. Below is information from the relevant documents:
+
+===
+${chunkText}
+===
+
+Based on this information, craft a concise, polite, and professional email reply, in correct rich-text email format. Then, suggest possible next steps or strategies Alice can take to move forward with this task. Ensure the replies options are concise with at max 4 words.
+
+Provide your response in the following JSON format:
+
+{
+  "email": "string",
+  "replies": ["string", "string", ...]
+}`;
 
       const draftReply = await getOpenAiChatCompletion({
         systemPrompt,
@@ -169,7 +185,18 @@ Do not include additional commentary. Just answer.`;
         temperature: 0.7,
       });
 
-      sendMessage(draftReply, "AI");
+      const draftReplyJson = JSON.parse(draftReply);
+      const email = draftReplyJson.email;
+      const replies = draftReplyJson.replies;
+
+      sendMessage(email, "AI");
+      setReplies(replies);
+
+      // **Ensure new replies are also stored in openAIResponse:**
+      setOpenAIResponse((prev) => ({
+        ...prev,
+        replies,
+      }));
     } catch (err) {
       console.error("Error retrieving from Ragie or drafting reply:", err);
     } finally {
@@ -242,8 +269,10 @@ Do not include additional commentary. Just answer.`;
           displayedText = m.text.substring(6).trim();
 
           return (
-            <div key={m.id} className={`chatBubble ${senderClass}`}>
-              {displayedText}
+            <div key={m.id} 
+            className={`chatBubble ${senderClass}`}
+            dangerouslySetInnerHTML={{ __html: displayedText }}>
+              {/* {displayedText} */}
             </div>
           );
         })}
@@ -284,6 +313,8 @@ Do not include additional commentary. Just answer.`;
             </div>
           </div>
         )}
+
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Chat Input */}

@@ -46,7 +46,7 @@ const ChatApp = () => {
     }
 
     // 4. Build the prefix: e.g., "AI----" or "USER--"
-    const prefix = role + "%".repeat(neededHyphens);
+    const prefix = role + " ".repeat(neededHyphens);
 
     // 5. Combine prefix + actual message
     const finalMessage = `${prefix} ${message}`;

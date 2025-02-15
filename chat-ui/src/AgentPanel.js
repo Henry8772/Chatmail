@@ -27,7 +27,7 @@ const AgentPanel = ({
 
   const [isChatLoading, setIsChatLoading] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Track whether emails have been uploaded
   const [ragieUploaded, setRagieUploaded] = useState(false);
@@ -61,7 +61,7 @@ const AgentPanel = ({
   // 2) When event loads, we also get a quick summarization from GPT
   // -----------------------------
   const fetchOpenAIResponse = async (content) => {
-    setIsChatLoading(true);
+    setIsLoading(true);
     try {
       const systemPrompt = `You are a helpful assistant. You will ONLY respond in valid JSON with the following format, no extra text:
       {
@@ -92,7 +92,7 @@ const AgentPanel = ({
         replies: ["No replies available."],
       };
     } finally {
-      setIsChatLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -130,7 +130,7 @@ const AgentPanel = ({
     }
 
     try {
-      setIsLoading(true);
+      setIsChatLoading(true);
 
       sendMessage(actionText, 'USER');
 
@@ -140,7 +140,7 @@ const AgentPanel = ({
       const chunkText = await retrieveRelevantChunks(actionText);
 
       // 4b) Use chunkText + user actionText to get GPT to draft a reply
-      const systemPrompt = `You are "Ragie AI", a friendly AI assistant. 
+      const systemPrompt = `You are "Chatmail AI", a friendly AI assistant. 
       Here is all the information from the relevant documents:
       ===
       ${chunkText}
@@ -166,7 +166,7 @@ const AgentPanel = ({
     } catch (err) {
       console.error("Error retrieving from Ragie or drafting reply:", err);
     } finally {
-      setIsLoading(false);
+      setIsChatLoading(false);
     }
   };
 
@@ -220,11 +220,17 @@ const AgentPanel = ({
 
       {/* The Chat Messages */}
       <div className="chatMessages">
-        {messages.map((m) => (
-          <div key={m.id} className="chatBubble">
-            {m.text}
-          </div>
-        ))}
+        {messages.map((m) => {
+          // Safely remove the first 6 characters, if they exist
+          const displayText =
+            m.text.length > 6 ? m.text.substring(6) : m.text;
+
+          return (
+            <div key={m.id} className="chatBubble">
+              {displayText}
+            </div>
+          );
+        })}
       </div>
 
       {/* GPT Quick Replies */}

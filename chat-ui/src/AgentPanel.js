@@ -1,13 +1,9 @@
-// AgentPanel.jsx
-
 import React, { useState, useEffect } from "react";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import "./AgentPanel.css";
 import { FaRegFileAlt, FaRegLightbulb } from "react-icons/fa";
 import { getOpenAiChatCompletion } from "./llm_caller";
-
-// 1) Import your new Ragie helper functions
 import { uploadEmailsToRagie, retrieveRelevantChunks } from "./ragie_caller";
 
 const AgentPanel = ({
@@ -22,33 +18,20 @@ const AgentPanel = ({
     suggestion: "",
     replies: [],
   });
-  const [message, setMessage] = useState('');
-
-
+  const [message, setMessage] = useState("");
   const [isChatLoading, setIsChatLoading] = useState(false);
-
   const [isLoading, setIsLoading] = useState(true);
-
-  // Track whether emails have been uploaded
   const [ragieUploaded, setRagieUploaded] = useState(false);
 
-  // -----------------------------
-  // 1) Upload emails to Ragie
-  // -----------------------------
+  // Upload emails to Ragie
   useEffect(() => {
     if (!event || !event.emails || event.emails.length === 0) return;
-
-    // Merge all emails into one text for demonstration
     const mergedEmails = event.emails.join("\n\n---\n\n");
-
     console.log("Uploading emails to Ragie...");
-
     (async function handleUpload() {
       try {
         const res = await uploadEmailsToRagie(mergedEmails);
         console.log("Ragie upload response:", res.status, res.statusText);
-
-        // If we get here, it means upload succeeded
         setRagieUploaded(true);
         console.log("Uploaded emails to Ragie successfully!");
       } catch (err) {
@@ -57,9 +40,7 @@ const AgentPanel = ({
     })();
   }, [event]);
 
-   // -----------------------------
-  // 2) When event loads, we also get a quick summarization from GPT
-  // -----------------------------
+  // Summarization from GPT on load
   const fetchOpenAIResponse = async (content) => {
     setIsLoading(true);
     try {
@@ -70,10 +51,8 @@ const AgentPanel = ({
         "replies": ["string", "string", ...]
       }`;
 
-      // Combine that system prompt with the user content
       const userContent = `Generate a concise summary, suggestion, and possible replies for the following email content:\n\n${content}`;
 
-      // Call our helper
       const assistantMessage = await getOpenAiChatCompletion({
         systemPrompt,
         userContent,
@@ -96,6 +75,7 @@ const AgentPanel = ({
     }
   };
 
+  // On event load, do quick summarization
   useEffect(() => {
     if (event && event.summary) {
       (async () => {
@@ -105,41 +85,28 @@ const AgentPanel = ({
     }
   }, [event]);
 
-  // -----------------------------
-  // 3) Summarize on-demand
-  // -----------------------------
+  // Summarize on-demand
   const handleSendMessage = async () => {
-
     sendMessage(message, "USER");
-
-    const newData = await fetchOpenAIResponse(event.summary + "\n" +  message);
-      
-
+    const newData = await fetchOpenAIResponse(event.summary + "\n" + message);
     sendMessage(newData, "AI");
-    
-  
+    setMessage("");
   };
 
-  // -----------------------------
-  // 4) Handle Quick Reply
-  // -----------------------------
+  // Handle Quick Reply
   const handleActionClick = async (actionText) => {
     if (!ragieUploaded) {
       alert("Emails have not yet been uploaded to Ragie or failed to upload.");
       return;
     }
-
     try {
       setIsChatLoading(true);
+      sendMessage(actionText, "USER");
 
-      sendMessage(actionText, 'USER');
-
-
-
-      // 4a) Query Ragie for relevant chunks
+      // Query Ragie for relevant chunks
       const chunkText = await retrieveRelevantChunks(actionText);
 
-      // 4b) Use chunkText + user actionText to get GPT to draft a reply
+      // Use chunkText + user actionText to get GPT to draft a reply
       const systemPrompt = `You are "Chatmail AI", a friendly AI assistant. 
       Here is all the information from the relevant documents:
       ===
@@ -157,12 +124,7 @@ const AgentPanel = ({
         temperature: 0.7,
       });
 
-      // 4c) Add the GPT draft to the conversation
-
-
       sendMessage(draftReply, "AI");
-      
-
     } catch (err) {
       console.error("Error retrieving from Ragie or drafting reply:", err);
     } finally {
@@ -170,9 +132,7 @@ const AgentPanel = ({
     }
   };
 
-  // -----------------------------
-  // UI RENDER
-  // -----------------------------
+  // Render
   if (!event) {
     return (
       <div className="chatContainer">
@@ -189,14 +149,19 @@ const AgentPanel = ({
 
         {isLoading ? (
           <div className="loadingContainer">
-            <p className="loadingText">Thinking...</p>
-            <div className="spinner" />
+            <p className="loadingText">Thinking</p>
+            {/* Bouncing Dots Loader */}
+            <div className="loadingDots">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
         ) : (
           <>
             <p className="summaryText">
-              <FaRegFileAlt className="summaryIcon" />{" "}
-              {openAIResponse.summary}
+              <FaRegFileAlt className="summaryIcon" /> {openAIResponse.summary}
             </p>
             <p className="suggestionText">
               <FaRegLightbulb className="suggestionIcon" />{" "}
@@ -221,24 +186,44 @@ const AgentPanel = ({
       {/* The Chat Messages */}
       <div className="chatMessages">
         {messages.map((m) => {
-          // Safely remove the first 6 characters, if they exist
-          const displayText =
-            m.text.length > 6 ? m.text.substring(6) : m.text;
+          // ... existing message rendering logic
+          let senderClass = "userMessage";
+          let displayedText = m.text;
+
+          if (m.text.startsWith("AI")) {
+            senderClass = "aiMessage";
+          } else if (m.text.startsWith("USER")) {
+            senderClass = "userMessage";
+          }
+
+          displayedText = m.text.substring(6).trim();
 
           return (
-            <div key={m.id} className="chatBubble">
-              {displayText}
+            <div key={m.id} className={`chatBubble ${senderClass}`}>
+              {displayedText}
             </div>
           );
         })}
+
+        {/* When AI is "thinking", show a loading bubble */}
+        {isChatLoading && (
+          <div className="chatBubble aiMessage">
+            <div className="loadingDots">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        )}
       </div>
+
 
       {/* GPT Quick Replies */}
       <div className="chatQuickReplies">
         <strong>Replies:</strong>
         <div className="replyButtons">
           {openAIResponse.replies.map((action, index) => {
-            // Optionally truncate the button label
             const buttonLabel =
               action.length > 40 ? action.slice(0, 37) + "..." : action;
             return (
@@ -271,7 +256,8 @@ const AgentPanel = ({
           Send
         </button>
       </div>
-    </div> );
+    </div>
+  );
 };
 
 export default AgentPanel;

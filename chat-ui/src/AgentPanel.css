@@ -7,9 +7,22 @@
   border-radius: 6px;
   margin-left: 1rem;
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Keyframes for fade+slide in effect */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Chat Header */
 .chatHeader {
   margin-bottom: 0.5rem;
 }
@@ -20,15 +33,49 @@
   color: #fff;
 }
 
-/* If you are using eventSummary / eventSuggestion classes elsewhere, 
-   you can keep them or remove if not used */
-.eventSummary,
-.eventSuggestion {
-  font-size: 0.9rem;
-  margin: 4px 0;
-  color: #aaa;
+.summaryText,
+.suggestionText {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
+.summaryIcon {
+  color: #333;
+  margin-right: 4px;
+  font-size: 1.2rem;
+}
+
+.suggestionIcon {
+  color: #f0a500;
+  margin-right: 4px;
+  font-size: 1.2rem;
+}
+
+/* Toggle Section */
+.toggleEmailList {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.toggleText {
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.react-toggle--checked .react-toggle-track {
+  background-color: #004ec2;
+  border-color: #004ec2;
+}
+
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #004ec2 !important;
+  border-color: #004ec2 !important;
+}
+
+/* Chat Messages Container */
 .chatMessages {
   flex: 1;
   overflow-y: auto;
@@ -37,17 +84,37 @@
   padding: 0.75rem;
   border-radius: 6px;
   background-color: #2a2a2a;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Base bubble styling with fade+slide-in animation */
 .chatBubble {
+  max-width: 70%;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  word-wrap: break-word;
+  animation: fadeSlideIn 0.25s ease-out; /* <-- new animation here */
+}
+
+/* AI messages: align left, darker bubble */
+.aiMessage {
+  align-self: flex-start;
   background-color: #333;
   color: #ddd;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  border-radius: 4px;
-  max-width: 80%;
 }
 
+/* User messages: align right, accent bubble */
+.userMessage {
+  align-self: flex-end;
+  background-color: #0066ff;
+  color: #fff;
+}
+
+/* Quick Replies */
 .chatQuickReplies {
   margin-bottom: 1rem;
 }
@@ -73,6 +140,7 @@
   background-color: #004ec2;
 }
 
+/* Chat Input */
 .chatInputArea {
   display: flex;
   gap: 0.5rem;
@@ -105,51 +173,75 @@
   background-color: #004ec2;
 }
 
-/* Container for the react-toggle switch */
-.toggleEmailList {
+/* Loading container */
+.loadingContainer {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  gap: 8px;
 }
 
-.toggleText {
-  margin-right: 0.5rem;
+.loadingText {
+  margin-top: 12px;
   font-size: 0.9rem;
-  color: #ccc;
+  color: #aaa;
 }
 
-/* Override react-toggle checked color */
-.react-toggle--checked .react-toggle-track {
-  background-color: #004ec2;
-  border-color: #004ec2;
+/* Replace spinner with dot animation */
+.loadingDots {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 10px;
 }
 
-/* Override react-toggle hover color when checked */
-.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: #004ec2 !important;
-  border-color: #004ec2 !important;
+.loadingDots div {
+  position: absolute;
+  top: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccc;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 
-.summaryText {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
+.loadingDots div:nth-child(1) {
+  left: 0px;
+  animation: loadingDots1 0.6s infinite;
+}
+.loadingDots div:nth-child(2) {
+  left: 12px;
+  animation: loadingDots2 0.6s infinite;
+}
+.loadingDots div:nth-child(3) {
+  left: 24px;
+  animation: loadingDots2 0.6s infinite;
+}
+.loadingDots div:nth-child(4) {
+  left: 36px;
+  animation: loadingDots3 0.6s infinite;
 }
 
-.suggestionText {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
+@keyframes loadingDots1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
-
-.summaryIcon {
-  color: #333;
-  margin-right: 4px;
-  font-size: 1.2rem;
+@keyframes loadingDots2 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(12px);
+  }
 }
-
-.suggestionIcon {
-  color: #f0a500;
-  margin-right: 4px;
-  font-size: 1.2rem;
+@keyframes loadingDots3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
 }

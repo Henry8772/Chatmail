@@ -321,7 +321,7 @@ Provide your response in the following JSON format:
       <div className="chatInputArea">
         <input
           type="text"
-          placeholder='Type "/summarize" or any message...'
+          placeholder='Ask me anything'
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={(e) => {

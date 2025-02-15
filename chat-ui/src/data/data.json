@@ -31,152 +31,9 @@
     "summary": "Google and Microsoft are both showing interest in your profile.",
     "suggestion": "You might follow up with your updated CV."
     },
-    {
-    "id": "business_collaboration_project",
-    "title": "AI Dashboard Collaboration Project",
-    "description": "Email interactions for a business project collaboration on AI-Powered Dashboard development.",
-    "account": "official",
-    "group": "High Priority",
-    "emails": [
-      {
-        "id": "email_001",
-        "type": "inbox",
-        "receiver": "you",
-        "sender": "Quantum Insights",
-        "subject": "Proposal for AI Dashboard Development",
-        "snippet": "We are interested in developing an AI-powered data dashboard...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Proposal for AI Dashboard Development</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Proposal for AI Dashboard Development</h1>\n    <p>Hello Nova AI Technologies Team,</p>\n    <p>We at Quantum Insights are looking to develop an AI-powered data dashboard to enhance our data analytics capabilities. The goal is to support real-time data processing and analytics for 50-100 concurrent users.</p>\n    <p>Could you provide us with some initial technical suggestions? We are considering using AWS as our cloud platform.</p>\n    <p>Best Regards,<br>Jane Doe<br>Product Lead, Quantum Insights</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-01T08:00:00Z",
-        "category": "Product"
-      },
-      {
-        "id": "email_002",
-        "type": "sent",
-        "receiver": "stakeholders",
-        "sender": "Nova AI Technologies",
-        "subject": "Re: Proposal for AI Dashboard Development",
-        "snippet": "Thank you for reaching out to us at Nova AI Technologies...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Response to Proposal</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Response to Proposal</h1>\n    <p>Hi Jane,</p>\n    <p>Thank you for reaching out to us at Nova AI Technologies. We are excited about the opportunity to collaborate on developing your AI dashboard.</p>\n    <p>Based on the initial requirements, we recommend utilizing <strong>AWS Kinesis</strong> for real-time streaming and <strong>Redshift</strong> for efficient data storage and analytics. Could you please provide more details on your data sources and specific analytics needs?</p>\n    <p>Looking forward to your response.</p>\n    <p>Best,<br>John Smith<br>CTO, Nova AI Technologies</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-01T10:00:00Z",
-        "category": "Product"
-      },
-      {
-        "id": "email_003",
-        "type": "inbox",
-        "receiver": "you",
-        "sender": "Quantum Insights",
-        "subject": "Re: Proposal for AI Dashboard Development",
-        "snippet": "Here are the additional details you requested...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Additional Proposal Details</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Additional Proposal Details</h1>\n    <p>Hi John,</p>\n    <p>Thanks for your prompt response. We plan to integrate various data points including sales metrics, customer feedback, and operational insights from multiple channels.</p>\n    <p>The dashboard should provide customizable analytics and support alert systems based on data thresholds.<br>We're particularly interested in predictive analytics features.</p>\n    <p>Best,<br>Jane</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-02T09:00:00Z",
-        "category": "Product"
-      },
-      {
-        "id": "email_004",
-        "type": "sent",
-        "receiver": "stakeholders",
-        "sender": "Nova AI Technologies",
-        "subject": "AQ Proposal Finalization and Technical Clarifications",
-        "snippet": "Based on your additional details, here is our clarified proposal...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Proposal Finalization</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Proposal Finalization</h1>\n    <p>Hi Jane,</p>\n    <p>With the details provided, we propose using <strong>AWS SageMaker</strong> for predictive analytics capabilities alongside Kinesis and Redshift. This setup will accommodate your large user base and varied data types effectively.</p>\n    <p>The estimated development time is around <strong>3 months</strong>. Could you confirm if this meets your expectations?</p>\n    <p>Best,<br>John</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-02T11:00:00Z",
-        "category": "Product"
-      },
-      {
-        "id": "email_005",
-        "type": "inbox",
-        "receiver": "you",
-        "sender": "Quantum Insights",
-        "subject": "Final Confirmation on Project Specifications",
-        "snippet": "We are pleased with the proposed approach and would like to proceed...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Final Confirmation</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Final Confirmation</h1>\n    <p>Hi John,</p>\n    <p>Your proposed solution with <strong>AWS SageMaker</strong> for predictive features is exactly what we are looking for. We are ready to move forward with the estimated timelines and expected costs.</p>\n    <p>Could you provide a preliminary timeline and budget overview?</p>\n    <p>Best,<br>Jane</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-03T08:30:00Z",
-        "category": "Product"
-      },
-      {
-        "id": "email_006",
-        "type": "sent",
-        "receiver": "stakeholders",
-        "sender": "Nova AI Technologies",
-        "subject": "Project Initiation - Timeline and Budget Overview",
-        "snippet": "Please find the initial project timeline and budget details...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Project Initiation</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Project Initiation</h1>\n    <p>Hi Jane,</p>\n    <p>We anticipate the project will take approximately <strong>3 months</strong>, with a projected budget of <strong>$60,000-$80,000</strong>. This will cover development, testing, and deployment phases.</p>\n    <p>We are thrilled to start this collaboration.</p>\n    <p>Best,<br>John</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-03T10:00:00Z",
-        "category": "Product"
-      },
-      {
-        "id": "email_007",
-        "type": "sent",
-        "receiver": "team",
-        "sender": "Nova AI Technologies",
-        "subject": "Engineering Tasks for AI Dashboard Project",
-        "snippet": "Engineering team to set up AWS Kinesis and integrate Redshift...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Engineering Tasks</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Engineering Tasks</h1>\n    <p><b>Engineering Team,</b></p>\n    <p>Project: Quantum Insights AI Dashboard</p>\n    <p>Tasks:</p>\n    <ul>\n      <li>Set up AWS Kinesis for data streaming.</li>\n      <li>Integrate AWS Redshift for analytics storage.</li>\n      <li>Develop initial dashboard prototype.</li>\n    </ul>\n    <p><b>Deadline:</b> 2023-12-15</p>\n    <p>Regards,<br>John</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-05T09:00:00Z",
-        "category": "Engineering"
-      },
-      {
-        "id": "email_008",
-        "type": "sent",
-        "receiver": "team",
-        "sender": "Nova AI Technologies",
-        "subject": "Financial Evaluation for AI Dashboard Project",
-        "snippet": "Finance team to evaluate and approve the AWS budget...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Financial Evaluation</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Financial Evaluation</h1>\n    <p><b>Finance Team,</b></p>\n    <p>Project: Quantum Insights AI Dashboard</p>\n    <p>Task: Conduct a detailed budget analysis for AWS services, Projected Cost: <strong>$60,000-$80,000</strong></p>\n    <p>Action: Approve budget by 2023-11-10 for project kick-off.</p>\n    <p>Best,<br>John</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-05T09:30:00Z",
-        "category": "Strategy"
-      },
-      {
-        "id": "email_009",
-        "type": "sent",
-        "receiver": "team",
-        "sender": "Nova AI Technologies",
-        "subject": "Legal Review for Partnership Contract",
-        "snippet": "Legal team to draft and review the partnership contract...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Legal Review</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Legal Review</h1>\n    <p><b>Legal Team,</b></p>\n    <p>Project: Quantum Insights AI Dashboard</p>\n    <p>Task: Draft and review partnership contract including data privacy clauses.</p>\n    <p>Action: Submit draft by 2023-11-12.</p>\n    <p>Regards,<br>John</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-05T10:00:00Z",
-        "category": "Legal"
-      },
-      {
-        "id": "email_010",
-        "type": "sent",
-        "receiver": "team",
-        "sender": "Nova AI Technologies",
-        "subject": "UX Design Tasks for AI Dashboard",
-        "snippet": "UX design team to focus on creating a user-friendly interface...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>UX Design Tasks</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>UX Design Tasks</h1>\n    <p><b>UX Design Team,</b></p>\n    <p>Project: Quantum Insights AI Dashboard</p>\n    <p>Tasks:</p>\n    <ul>\n      <li>Design intuitive user interfaces for data visualization.</li>\n      <li>Incorporate customizable elements for user interaction.</li>\n    </ul>\n    <p><strong>Deadline:</strong> 2023-12-01</p>\n    <p>Best,<br>John</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-05T10:30:00Z",
-        "category": "Engineering"
-      },
-      {
-        "id": "email_011",
-        "type": "sent",
-        "receiver": "team",
-        "sender": "Nova AI Technologies",
-        "subject": "Project Management Milestones",
-        "snippet": "Project management team is to outline main milestones...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Project Management Milestones</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Project Management Milestones</h1>\n    <p><b>Project Management Team,</b></p>\n    <p>Project: Quantum Insights AI Dashboard</p>\n    <p>Task: Outline project milestones and ensure adherence to timeline.</p>\n    <p><strong>Deadline for finalized milestones:</strong> 2023-11-08</p>\n    <p>Regards,<br>John</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-05T11:00:00Z",
-        "category": "Meetings"
-      },
-      {
-        "id": "email_012",
-        "type": "sent",
-        "receiver": "team",
-        "sender": "Nova AI Technologies",
-        "subject": "Sales Team - Client Follow-Up Plan",
-        "snippet": "Sales team to prepare a follow-up strategy with client...",
-        "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Client Follow-Up Plan</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #ffffff;\n      color: #333333;\n      padding: 20px;\n    }\n    .container {\n      background-color: #f8f8f8;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);\n    }\n    h1 { color: #333333; }\n    p, ul, li { color: #555555; line-height: 1.5; }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Client Follow-Up Plan</h1>\n    <p><b>Sales Team,</b></p>\n    <p>Project: Quantum Insights Collaboration</p>\n    <p>Task: Develop a client follow-up and engagement strategy.</p>\n    <p>Action: Provide initial strategy draft by 2023-11-09.</p>\n    <p>Best,<br>John</p>\n  </div>\n</body>\n</html>",
-        "time": "2023-11-05T11:30:00Z",
-        "category": "Strategy"
-      }
-    ],
-    "summary": "The emails detail a collaborative project between Nova AI Technologies and Quantum Insights for developing an AI-powered dashboard using AWS. Initial discussions and confirmations were made on project needs, followed by internal task management to ensure effective execution.",
-    "suggestion": "Proceed with detailed project plans and ensure all teams are aligned on deadlines. Monitor progress and maintain communication with Quantum Insights for continued collaboration success."
-  },
   {
     "id": "sprint_task_confirmation",
-    "title": "Sprint Task Confirmation - Dark Mode",
+    "title": "Sprint Task Confirmation",
     "description": "Sprint task confirmation email with a dark mode theme for better readability in low-light environments.",
     "account": "official",
     "group": "Other",
@@ -194,63 +51,11 @@
       }
     ],
     "summary": "The Scrum Master has requested a review and confirmation of Sprint task priorities and resource allocation.",
-    "suggestion": "Confirm Sprint priorities, check for resource conflicts, and escalate any blockers.",
-    "actions": [
-      {
-        "action": "Reply to Scrum Master with confirmed priorities",
-        "details": "Confirm Sprint task priorities and request clarification on resource dependencies.",
-        "email": {
-          "receiver": "Scrum Master",
-          "subject": "Re: Sprint Task Confirmation for This Week",
-          "snippet": "Here’s our confirmation on this week’s Sprint priorities...",
-          "content": "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\" />\n  <title>Sprint Task Confirmation</title>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      background-color: #121212;\n      padding: 20px;\n      color: #E0E0E0;\n    }\n    .container {\n      background-color: #1E1E1E;\n      padding: 20px;\n      border-radius: 8px;\n      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);\n    }\n    h1 {\n      color: #FFFFFF;\n    }\n    p, ul, li {\n      color: #E0E0E0;\n      line-height: 1.5;\n    }\n  </style>\n</head>\n<body>\n  <div class=\"container\">\n    <h1>Sprint Task Confirmation</h1>\n    <p>Hi Emily,</p>\n    <p>Thanks for sharing the Sprint task list. Here’s our confirmation on priorities:</p>\n    <ul>\n      <li><strong>Fix critical payment bug</strong> (High priority - needed for release)</li>\n      <li><strong>Implement user role-based access control</strong> (Medium priority - dependent on database update)</li>\n      <li><strong>Finalize API documentation</strong> (Low priority - non-blocking)</li>\n    </ul>\n    <p>Could you confirm if additional resources are available for the role-based access feature? It may require backend support.</p>\n    <p>Best,<br>[Your Name]</p>\n  </div>\n</body>\n</html>"
-        }
-      },
-      {
-        "action": "Escalate critical bug to leadership",
-        "details": "Inform the leadership team about the urgency of the critical payment bug and request an expedited fix.",
-        "email": {
-          "receiver": "Engineering Leadership",
-          "subject": "[Urgent] Critical Payment Bug Requires Immediate Attention",
-          "snippet": "The payment system is experiencing critical issues that must be resolved...",
-          "content": "Dear Engineering Leadership,<br><br>The payment system is experiencing a critical bug that could impact live transactions. We need an immediate resolution to prevent service disruptions.<br><br>We request urgent support from senior engineers to accelerate the fix.<br><br>Best,<br>[Your Name]"
-        }
-      },
-      {
-        "action": "Request additional backend support",
-        "details": "Request additional backend engineers to assist with API security and performance.",
-        "email": {
-          "receiver": "Engineering Team",
-          "subject": "Backend Support Request - API Security and Performance",
-          "snippet": "We need additional backend engineers to assist with API security and performance...",
-          "content": "Dear Engineering Team,<br><br>To ensure smooth development, we need additional backend engineers to assist with API security hardening and performance tuning.<br><br>Could we allocate more resources for this task?<br><br>Best,<br>[Your Name]"
-        }
-      },
-      {
-        "action": "Schedule a Sprint review meeting",
-        "details": "Set up a meeting with the team to discuss priorities, dependencies, and potential blockers.",
-        "email": {
-          "receiver": "Scrum Master, Engineering Team",
-          "subject": "Sprint Review Meeting - Task Prioritization",
-          "snippet": "Let's align on task priorities and resolve dependencies...",
-          "content": "Dear Team,<br><br>Before finalizing Sprint tasks, let's align on priorities and resolve any dependencies.<br><br>Please confirm availability for a review meeting.<br><br>Best,<br>[Your Name]"
-        }
-      },
-      {
-        "action": "Request QA involvement",
-        "details": "Ensure QA is ready for early testing of the payment system fixes.",
-        "email": {
-          "receiver": "QA Team",
-          "subject": "QA Testing Readiness for Payment System Fixes",
-          "snippet": "Ensure QA team is prepared for early testing of payment bug fixes...",
-          "content": "Dear QA Team,<br><br>The payment bug fix will be completed soon. Please prepare test cases to validate the fix and report any issues.<br><br>Best,<br>[Your Name]"
-        }
-      }
-    ]
+    "suggestion": "Confirm Sprint priorities, check for resource conflicts, and escalate any blockers."
   },
   {
     "id": "multi_company_collaboration_project_dark_mode",
-    "title": "AI Dashboard Collaboration with Multiple Companies - Dark Mode Consideration",
+    "title": "AI Dashboard Collaboration with Multiple Companies",
     "description": "Email interactions for a collaborative project involving several companies focused on developing an AI-Powered Dashboard, with considerations for dark mode email presentation.",
     "account": "official",
     "group": "High Priority",
@@ -280,8 +85,8 @@
       {
         "id": "email_003",
         "type": "sent",
-        "receiver": "stakeholders",
-        "sender": "Nova AI Technologies",
+        "receiver": "Quantum Insights",
+        "sender": "you",
         "subject": "Re: Proposal for AI Dashboard Development",
         "snippet": "Thank you for reaching out about the AI Dashboard collaboration...",
         "content": "Hi Jane,<br><br>Thank you for reaching out to us at Nova AI Technologies. We are excited about the opportunity to collaborate on developing your AI dashboard. Based on the initial requirements, we recommend utilizing <b>AWS Kinesis</b> for real-time streaming and <b>Redshift</b> for efficient data storage and analytics. Could you please provide more details on your data sources and specific analytics needs?<br><br>Looking forward to your response.<br><br>Best,<br>John Smith<br>CTO, Nova AI Technologies",
@@ -291,8 +96,8 @@
       {
         "id": "email_004",
         "type": "sent",
-        "receiver": "stakeholders",
-        "sender": "Nova AI Technologies",
+        "receiver": "Visionary Tech",
+        "sender": "you",
         "subject": "Re: AI Dashboard Collaboration Inquiry",
         "snippet": "Looking forward to our collaboration with Visionary Tech...",
         "content": "Hi Alex,<br><br>Thanks for your inquiry about collaborating on an AI dashboard. We would love to discuss how we can work together to integrate innovative features into your analytics platform. How is your schedule for a meeting this week?<br><br>Best,<br>John",
@@ -324,8 +129,8 @@
       {
         "id": "email_007",
         "type": "sent",
-        "receiver": "stakeholders",
-        "sender": "Nova AI Technologies",
+        "receiver": "Quantum Insights",
+        "sender": "you",
         "subject": "AQ Proposal Finalization and Technical Clarifications with Quantum Insights",
         "snippet": "Based on your additional details, here is our clarified proposal...",
         "content": "<b>Hi Jane,</b><br><br>With the details provided, we propose using <strong>AWS SageMaker</strong> for predictive analytics capabilities alongside Kinesis and Redshift. This setup will accommodate your large user base and varied data types effectively. The estimated development time is around <strong>3 months</strong>. Could you confirm if this meets your expectations?<br><br>Best,<br>John",
@@ -335,8 +140,8 @@
       {
         "id": "email_008",
         "type": "sent",
-        "receiver": "stakeholders",
-        "sender": "Nova AI Technologies",
+        "receiver": "Alex(SDE Manager)",
+        "sender": "you",
         "subject": "Meeting Invitation for AI Dashboard Discussion with Visionary Tech",
         "snippet": "Scheduling a meeting to explore AI dashboard features...",
         "content": "<b>Hi Alex,</b><br><br>I'd like to schedule a meeting to discuss your platform and how we can enhance it with our AI dashboard. Please let me know your available times this week, and I'll do my best to accommodate.<br><br>Looking forward to our conversation!<br><br>Best,<br>John",
@@ -346,8 +151,8 @@
       {
         "id": "email_009",
         "type": "sent",
-        "receiver": "stakeholders",
-        "sender": "Nova AI Technologies",
+        "receiver": "Quantum Insights",
+        "sender": "you",
         "subject": "Final Confirmation on Project Specifications with Quantum Insights",
         "snippet": "We are pleased with the proposed approach and would like to proceed...",
         "content": "Hi John,<br><br>Your proposed solution with AWS SageMaker for predictive features is exactly what we are looking for. We are ready to move forward with the estimated timelines and expected costs. Could you provide a preliminary timeline and budget overview?<br><br>Best,<br>Jane",
@@ -357,8 +162,8 @@
       {
         "id": "email_010",
         "type": "sent",
-        "receiver": "stakeholders",
-        "sender": "Nova AI Technologies",
+        "receiver": "Jane(Finance Team)",
+        "sender": "you",
         "subject": "Project Initiation - Timeline and Budget Overview",
         "snippet": "Please find the initial project timeline and budget details...",
         "content": "<b>Hi Jane,</b><br><br>We anticipate the project will take approximately <strong>3 months</strong>, with a projected budget of <strong>$60,000-$80,000</strong>. This will cover development, testing, and deployment phases. We are thrilled to start this collaboration.<br><br>Best,<br>John",
@@ -368,8 +173,8 @@
       {
         "id": "email_011",
         "type": "sent",
-        "receiver": "team",
-        "sender": "Nova AI Technologies",
+        "receiver": "Engineering Team",
+        "sender": "you",
         "subject": "Engineering Tasks for AI Dashboard Project for Quantum Insights",
         "snippet": "Engineering team to set up AWS Kinesis and integrate Redshift...",
         "content": "<b>Engineering Team,</b><br><br>Project: Quantum Insights AI Dashboard<br>Tasks:<ul><li>Set up AWS Kinesis for data streaming.</li><li>Integrate AWS Redshift for analytics storage.</li><li>Develop initial dashboard prototype.</li></ul><br>Deadline: 2023-12-15<br><br>Regards,<br>John",
@@ -379,8 +184,8 @@
       {
         "id": "email_012",
         "type": "sent",
-        "receiver": "team",
-        "sender": "Nova AI Technologies",
+        "receiver": "UI/UX Design Team",
+        "sender": "you",
         "subject": "UX Design Tasks for AI Dashboard with Quantum Insights",
         "snippet": "UX design team to focus on creating a user-friendly interface...",
         "content": "<b>UX Design Team,</b><br><br>Project: Quantum Insights AI Dashboard<br>Tasks:<ul><li>Design intuitive user interfaces for data visualization.</li><li>Incorporate customizable elements for user interaction.</li></ul><br>Deadline: 2023-12-01<br><br>Best,<br>John",

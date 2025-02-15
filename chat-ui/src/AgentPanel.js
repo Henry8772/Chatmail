@@ -89,37 +89,32 @@ const AgentPanel = ({
     }
   }, [event]);
 
-  // Summarize on-demand
+  // Send message and handle conversation
   const handleSendMessage = async () => {
-    // 1) Send the newly typed user message to the chat with "USER" prefix
+    // 1) Send the newly typed user message
     sendMessage(message, "USER");
   
     // 2) Build conversation array from ALL messages so far
-    //    by stripping off the first 6 characters (USER / AI) and
-    //    mapping them to { role: "user" | "assistant", content: string }
-    const conversationHistory = messages.map((m) => {
-      if (m.text.startsWith("USER")) {
-        return { role: "user", content: m.text.substring(6).trim() };
-      } else if (m.text.startsWith("AI")) {
-        return { role: "assistant", content: m.text.substring(6).trim() };
-      }
-      // If you ever introduce "system" messages, handle them similarly:
-      // else if (m.text.startsWith("SYSTEM")) {
-      //   return { role: "system", content: m.text.substring(6).trim() };
-      // }
-      return null;
-    }).filter(Boolean);
+    const conversationHistory = messages
+      .map((m) => {
+        if (m.text.startsWith("USER")) {
+          return { role: "user", content: m.text.substring(6).trim() };
+        } else if (m.text.startsWith("AI")) {
+          return { role: "assistant", content: m.text.substring(6).trim() };
+        }
+        return null;
+      })
+      .filter(Boolean);
   
-    // Also push the brand-new user message into conversation
+    // Also push the brand-new user message
     conversationHistory.push({ role: "user", content: message });
   
     // 3) Call your LLM with the complete conversation
     try {
       setIsChatLoading(true);
   
-      // For example, if your getOpenAiChatCompletion can take a `conversation` array:
       const systemPrompt = `You are a helpful assistant who strictly returns valid answers.
-  Do not include additional commentary. Just answer.`;
+Do not include additional commentary. Just answer.`;
   
       const assistantMessage = await getOpenAiChatCompletion({
         systemPrompt,
@@ -129,16 +124,15 @@ const AgentPanel = ({
         temperature: 0.7,
       });
   
-      // 4) Send the assistant's new message with "AI" prefix
+      // 4) Send the assistant's new message
       sendMessage(assistantMessage, "AI");
     } catch (error) {
       console.error("Error during AI completion:", error);
     } finally {
       setIsChatLoading(false);
-      setMessage(""); // Clear text input
+      setMessage("");
     }
   };
-  
 
   // Handle Quick Reply
   const handleActionClick = async (actionText) => {
@@ -197,7 +191,6 @@ const AgentPanel = ({
         {isLoading ? (
           <div className="loadingContainer">
             <p className="loadingText">Thinking</p>
-            {/* Bouncing Dots Loader */}
             <div className="loadingDots">
               <div></div>
               <div></div>
@@ -230,10 +223,9 @@ const AgentPanel = ({
         />
       </div>
 
-      {/* The Chat Messages */}
+      {/* Chat Messages */}
       <div className="chatMessages">
         {messages.map((m) => {
-          // ... existing message rendering logic
           let senderClass = "userMessage";
           let displayedText = m.text;
 
@@ -252,7 +244,7 @@ const AgentPanel = ({
           );
         })}
 
-        {/* When AI is "thinking", show a loading bubble */}
+        {/* Show AI "thinking" bubble if needed */}
         {isChatLoading && (
           <div className="chatBubble aiMessage">
             <div className="loadingDots">
@@ -263,27 +255,31 @@ const AgentPanel = ({
             </div>
           </div>
         )}
-      </div>
 
-
-      {/* GPT Quick Replies */}
-      <div className="chatQuickReplies">
-        <strong>Replies:</strong>
-        <div className="replyButtons">
-          {openAIResponse.replies.map((action, index) => {
-            const buttonLabel =
-              action.length > 40 ? action.slice(0, 37) + "..." : action;
-            return (
-              <button
-                key={index}
-                onClick={() => handleActionClick(action)}
-                className="replyButton"
-              >
-                {buttonLabel}
-              </button>
-            );
-          })}
-        </div>
+        {/* 
+          NEW: Quick replies are now displayed as part 
+          of the chat messages area, in a "systemMessage" bubble.
+        */}
+        {openAIResponse.replies && openAIResponse.replies.length > 0 && (
+          <div className="systemMessage">
+            <p className="quickRepliesLabel">Suggested replies:</p>
+            <div className="replyButtons">
+              {openAIResponse.replies.map((action, index) => {
+                const buttonLabel =
+                  action.length > 40 ? action.slice(0, 37) + "..." : action;
+                return (
+                  <button
+                    key={index}
+                    onClick={() => handleActionClick(action)}
+                    className="chatBubble replyButton"
+                  >
+                    {buttonLabel}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Chat Input */}

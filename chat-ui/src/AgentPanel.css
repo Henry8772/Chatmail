@@ -97,7 +97,7 @@
   line-height: 1.4;
   font-size: 0.95rem;
   word-wrap: break-word;
-  animation: fadeSlideIn 0.25s ease-out; /* <-- new animation here */
+  animation: fadeSlideIn 0.25s ease-out;
 }
 
 /* AI messages: align left, darker bubble */
@@ -114,33 +114,46 @@
   color: #fff;
 }
 
-/* Quick Replies */
-.chatQuickReplies {
-  margin-bottom: 1rem;
+/* A "system" style bubble for special info or quick replies */
+.systemMessage {
+  align-self: flex-end;
+  color: #fff;
+  width: 40%;
+  /* You can style this differently to stand out */
 }
 
+/* Quick replies within systemMessage bubble */
+.quickRepliesLabel {
+  margin: 0 0 0.4rem 0;
+  font-size: 0.9rem;
+  color: #ddd;
+  font-weight: 600;
+}
+
+/* The row of reply buttons */
 .replyButtons {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 0.25rem;
 }
 
+/* Techy button style */
 .replyButton {
+  border: none;
   background-color: #0066ff;
   color: #fff;
-  border: none;
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  font-size: 0.85rem;
 }
 
 .replyButton:hover {
   background-color: #004ec2;
+  transform: translateY(-1px);
 }
 
-/* Chat Input */
+/* Chat Input (unchanged) */
 .chatInputArea {
   display: flex;
   gap: 0.5rem;
@@ -166,11 +179,12 @@
   border-radius: 4px;
   padding: 0 1rem;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, transform 0.2s;
 }
 
 .chatSendButton:hover {
   background-color: #004ec2;
+  transform: translateY(-1px);
 }
 
 /* Loading container */
@@ -186,7 +200,7 @@
   color: #aaa;
 }
 
-/* Replace spinner with dot animation */
+/* Dot animation */
 .loadingDots {
   display: inline-block;
   position: relative;

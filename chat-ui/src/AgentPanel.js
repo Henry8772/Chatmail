@@ -26,8 +26,8 @@ const AgentPanel = ({
   // Upload emails to Ragie
   useEffect(() => {
     if (!event || !event.emails || event.emails.length === 0) return;
-    const mergedEmails = event.emails.join("\n\n---\n\n");
-    console.log("Uploading emails to Ragie...");
+    const mergedEmails = JSON.stringify(event.emails);
+    console.log("Uploading emails to Ragie...", mergedEmails);
     (async function handleUpload() {
       try {
         const res = await uploadEmailsToRagie(mergedEmails);
@@ -145,7 +145,11 @@ Do not include additional commentary. Just answer.`;
       sendMessage(actionText, "USER");
 
       // Query Ragie for relevant chunks
-      const chunkText = await retrieveRelevantChunks(actionText);
+      // const chunkText = await retrieveRelevantChunks("Find details in emails related to " + actionText);
+      // console.log("Retrieved chunk text:", chunkText);
+
+      // Get last 5 emails 
+      const chunkText = JSON.stringify(event.emails.slice(-5));
 
       // Use chunkText + user actionText to get GPT to draft a reply
       const systemPrompt = `You are "Chatmail AI", a friendly AI assistant. 

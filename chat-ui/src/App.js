@@ -41,19 +41,6 @@ const ChatApp = () => {
   // 5. Generate “event-level” quick replies
   const generateQuickRepliesForEvent = (event) => {
     if (!event) return [];
-    // if (event.title === 'Job Applications') {
-    //   return [
-    //     'Send Updated CV',
-    //     'Request More Details About the Role',
-    //     'Politely Decline Opportunities',
-    //   ];
-    // } else if (event.title === 'Meeting with Dr. Who') {
-    //   return [
-    //     'Confirm Tuesday at 2 PM',
-    //     'Request an Alternate Time',
-    //     'Ask for Meeting Agenda',
-    //   ];
-    // }
     return [];
   };
 

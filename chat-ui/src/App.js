@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Router, Route } from 'wouter';
 import Banner from './Banner';
 import EventDashboard from './EventDashboard';
@@ -7,143 +7,17 @@ import AgentPanel from './AgentPanel';
 import Setting from './Setting';
 import './App.css';
 
+// 1. Import the JSON data
+import data from './data/data.json';
+
 const ChatApp = () => {
-  // 1. EVENT-CENTRIC DATA
-  const [events, setEvents] = useState([
-    {
-      id: 'ev1',
-      title: 'Job Applications',
-      description: 'Emails related to ongoing job applications',
-      account: 'personal',
-      emails: [
-        {
-          id: 'e1',
-          type: 'inbox',
-          receiver: 'you',
-          sender: 'Google HR',
-          subject: 'Opportunity at Google',
-          snippet: 'We are impressed by your credentials...',
-          content: 'We are impressed by your credentials and would like to invite you for an interview...',
-          time: '10:30 AM',
-          category: 'Job Applications',
-        },
-        {
-          id: 'e2',
-          type: 'inbox',
-          receiver: 'you',
-          sender: 'Microsoft HR',
-          subject: 'Your Application at Microsoft',
-          snippet: 'Your profile matches our requirements...',
-          content: 'Your profile matches our requirements and we would like to schedule an interview...',
-          time: '11:45 AM',
-          category: 'Job Applications',
-        },
-      ],
-      summary: 'Google and Microsoft are both showing interest in your profile.',
-      suggestion: 'You might follow up with your updated CV.',
-    },
-    {
-      id: 'ev2',
-      title: 'Meeting with Dr. Who',
-      description: 'Emails & tasks for upcoming meeting',
-      account: 'personal',
-      emails: [
-        {
-          id: 'e3',
-          type: 'inbox',
-          receiver: 'you',
-          sender: 'Dr. Who',
-          subject: 'Re: Meeting Details',
-          snippet: 'Let’s schedule a conversation next Tuesday',
-          content: 'Let’s schedule a conversation next Tuesday to discuss your research...',
-          time: 'Yesterday',
-          category: 'Meetings',
-        },
-      ],
-      summary: 'Dr. Who is requesting a meeting next week to discuss your research.',
-      suggestion: 'Propose a few time slots or request a topic agenda.',
-    },
-    {
-      id: 'ev4',
-      title: 'ChatMail Product Launch',
-      description: 'Emails & tasks for ChatMail product',
-      account: 'official',
-      emails: [
-        {
-          id: 'e4',
-          type: 'inbox',
-          receiver: 'you',
-          sender: 'Boss',
-          subject: 'We need to build a new feature',
-          snippet: 'We should build the fanciest email client ever',
-          content: 'We should build the fanciest email client ever. Let’s discuss this in the meeting...',
-          time: 'Yesterday',
-          category: 'Product',
-        },
-        {
-          id: 'e5',
-          type: 'sent',
-          receiver: 'Developer Team',
-          sender: 'you',
-          subject: 'We need to build a new feature',
-          snippet: 'We should build the fanciest email client ever',
-          content: `
-            <!DOCTYPE html>
-            <html>
-              <head>
-                <meta charset="UTF-8" />
-                <title>Welcome to ChatMail</title>
-                <style>
-                  /* Inline CSS for the email */
-                  body {
-                    margin: 0;
-                    padding: 20px;
-                    font-family: Arial, sans-serif;
-                    background-color: #121212;
-                  }
-                  .container {
-                    background-color: #1e1e1e;
-                    padding: 20px;
-                    border-radius: 5px;
-                  }
-                  h1 {
-                    color: #fff;
-                  }
-                  p {
-                    line-height: 1.5;
-                  }
-                  .footer {
-                    margin-top: 20px;
-                    font-size: 12px;
-                    color: #888;
-                  }
-                </style>
-              </head>
-              <body>
-                <div class="container">
-                  <h1>Welcome to ChatMail!</h1>
-                  <p>Dear User,</p>
-                  <p>
-                    Thank you for joining ChatMail. We're excited to have you as a part of our
-                    community. Feel free to explore our features and let us know if you have any
-                    questions.
-                  </p>
-                  <p>Best regards,<br />The ChatMail Team</p>
-                </div>
-                <div class="footer">
-                  This email was sent to you by ChatMail. Please do not reply to this email.
-                </div>
-              </body>
-            </html>
-            `,
-          time: 'Yesterday',
-          category: 'Product',
-        },
-      ],
-      summary: 'Dr. Who is requesting a meeting next week to discuss your research.',
-      suggestion: 'Propose a few time slots or request a topic agenda.',
-    },
-  ]);
+  // 2. Set up a state variable for events, initially empty
+  const [events, setEvents] = useState([]);
+
+  // 3. Load the data.json content into the `events` state on component mount
+  useEffect(() => {
+    setEvents(data);
+  }, []);
 
   // 2. SELECTED EVENT
   const [selectedEventId, setSelectedEventId] = useState('ev1');
@@ -163,26 +37,23 @@ const ChatApp = () => {
     }
   };
 
-  /**
-   * 5. Generate “event-level” quick replies
-   */
+  // 5. Generate “event-level” quick replies
   const generateQuickRepliesForEvent = (event) => {
     if (!event) return [];
-
-    if (event.title === 'Job Applications') {
-      return [
-        'Send Updated CV',
-        'Request More Details About the Role',
-        'Politely Decline Opportunities',
-      ];
-    } else if (event.title === 'Meeting with Dr. Who') {
-      return [
-        'Confirm Tuesday at 2 PM',
-        'Request an Alternate Time',
-        'Ask for Meeting Agenda',
-      ];
-    }
-    return ['Acknowledge Email', 'No action needed'];
+    // if (event.title === 'Job Applications') {
+    //   return [
+    //     'Send Updated CV',
+    //     'Request More Details About the Role',
+    //     'Politely Decline Opportunities',
+    //   ];
+    // } else if (event.title === 'Meeting with Dr. Who') {
+    //   return [
+    //     'Confirm Tuesday at 2 PM',
+    //     'Request an Alternate Time',
+    //     'Ask for Meeting Agenda',
+    //   ];
+    // }
+    return [];
   };
 
   // 6. Currently selected event

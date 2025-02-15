@@ -1,0 +1,71 @@
+.emailModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .emailModalContent {
+    background-color: #2a2a2a; /* Dark background matching the email list style */
+    padding: 1rem;
+    width: 90%;
+    max-width: 500px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #ccc;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    outline: none;
+  }
+  
+  .emailModalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .emailModalHeader h2 {
+    margin: 0;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #ccc;
+    cursor: pointer;
+  }
+  
+  .emailModalBody p {
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+  
+  /* Styling for the email content box */
+  .emailContentBox {
+    background-color: #1f1f1f;  /* A slightly darker background for the content box */
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Styling for rich text email content */
+  .emailContent {
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  
+  .emailContent a {
+    color: #004ec2;
+  }

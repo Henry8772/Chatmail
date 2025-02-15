@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
+import EmailModal from './EmailModal';
 import './EmailList.css';
 
 const EmailList = ({ emails }) => {
+  console.log(emails);
   const [activeFolder, setActiveFolder] = useState('inbox');
+  const [selectedEmail, setSelectedEmail] = useState(null);
 
   // Filter emails based on active folder ("inbox" or "sent")
   const filteredEmails = emails.filter(email => email.type === activeFolder);
+
+  const handleEmailClick = (email) => {
+    setSelectedEmail(email);
+  };
+
+  const closeModal = () => {
+    setSelectedEmail(null);
+  };
 
   return (
     <div className="emailList">
@@ -26,7 +37,11 @@ const EmailList = ({ emails }) => {
       <h2>Emails</h2>
       <ul className="emailListItems">
         {filteredEmails.map((email) => (
-          <li key={email.id} className="emailListItem">
+          <li
+            key={email.id}
+            className="emailListItem"
+            onClick={() => handleEmailClick(email)}
+          >
             <div className="emailSender">
               <span className="emailPrefix">
                 {activeFolder === 'inbox' ? 'FROM: ' : 'TO: '}
@@ -43,6 +58,12 @@ const EmailList = ({ emails }) => {
           </li>
         ))}
       </ul>
+      {/* Render the modal */}
+      <EmailModal
+        isOpen={!!selectedEmail}
+        onRequestClose={closeModal}
+        email={selectedEmail}
+      />
     </div>
   );
 };

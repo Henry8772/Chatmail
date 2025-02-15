@@ -3,6 +3,7 @@
     "title": "Job Applications",
     "description": "Emails related to ongoing job applications",
     "account": "personal",
+    "group": "Other",
     "emails": [
         {
         "id": "e1",
@@ -35,6 +36,7 @@
     "title": "AI Dashboard Collaboration Project",
     "description": "Email interactions for a business project collaboration on AI-Powered Dashboard development.",
     "account": "official",
+    "group": "High Priority",
     "emails": [
       {
         "id": "email_001",
@@ -177,6 +179,7 @@
     "title": "Sprint Task Confirmation - Dark Mode",
     "description": "Sprint task confirmation email with a dark mode theme for better readability in low-light environments.",
     "account": "official",
+    "group": "Other",
     "emails": [
       {
         "id": "email_001",
@@ -250,6 +253,7 @@
     "title": "AI Dashboard Collaboration with Multiple Companies - Dark Mode Consideration",
     "description": "Email interactions for a collaborative project involving several companies focused on developing an AI-Powered Dashboard, with considerations for dark mode email presentation.",
     "account": "official",
+    "group": "High Priority",
     "emails": [
       {
         "id": "email_001",

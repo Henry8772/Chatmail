@@ -80,20 +80,21 @@ const ChatApp = () => {
   const eventQuickReplies = generateQuickRepliesForEvent(currentEvent);
 
   // 8. Group events by category in App.js
-  const groupedEvents = events.reduce((acc, event) => {
-    let group = '';
-    if (event.title === 'Job Applications') {
-      group = 'High Priority';
-    } else if (event.title === 'Meeting with Dr. Who') {
-      group = 'Followup';
-    } else {
-      group = 'Other';
-    }
+  const _groupedEvents = events.reduce((acc, event) => {
+    let group = event.group || 'Other';
     if (!acc[group]) {
       acc[group] = [];
     }
     acc[group].push(event);
     return acc;
+  }, {});
+  const groupOrder = ['High Priority', 'Other'];
+
+  const groupedEvents = groupOrder.reduce((ordered, key) => {
+  if (_groupedEvents[key]) {
+    ordered[key] = _groupedEvents[key];
+  }
+  return ordered;
   }, {});
 
   // 9. Control visibility of the EmailList

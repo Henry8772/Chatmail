@@ -23,11 +23,12 @@ export async function getOpenAiChatCompletion({
   temperature = 0.7,
 }) {
   try {
+    console.log("Calling OpenAI with:", { systemPrompt, userContent });
     const response = await openai.chat.completions.create({
       model,
       messages: [
         { role: "system", content: systemPrompt },
-        { role: "user", content: userContent },
+        { role: "user", content: userContent ?? "Alice has been invited for an interview due to her impressive credentials and matching profile with the requirements. Your generated response to ask When is the interview? is not good, regenerate new template, do not ask question" },
       ],
       max_tokens: maxTokens,
       temperature,

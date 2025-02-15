@@ -103,6 +103,7 @@ const AgentPanel = ({
 
   // Send message and handle conversation
   const handleSendMessage = async () => {
+    console.log("Sending message:", message);
     // 1) Send the newly typed user message
     sendMessage(message, "USER");
 
@@ -118,12 +119,15 @@ const AgentPanel = ({
       })
       .filter(Boolean);
 
+    console.log("Conversation history:", conversationHistory);
+
     // Also push the brand-new user message
-    conversationHistory.push({ role: "user", content: message });
+    conversationHistory.push({ role: "user", content: "Not good" });
 
     // 3) Call your LLM with the complete conversation
     try {
       setIsChatLoading(true);
+      console.log("Calling LLM with conversation history:", conversationHistory);
 
       const systemPrompt = `You are a helpful assistant who strictly returns valid answers.
 Do not include additional commentary. Just answer.`;

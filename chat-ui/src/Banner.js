@@ -8,7 +8,7 @@ const Banner = () => {
     <div className="banner">
       <div className="banner-left">
         {/* Replace 'logo192.png' with your own logo image path if desired */}
-        <img src="chatmail.jpg" alt="Logo" className="banner-logo" />
+        <img src="chatmail2.png" alt="Logo" className="banner-logo" />
         <span className="banner-username">Alice (UID:123456)</span>
       </div>
       <div className="banner-right">

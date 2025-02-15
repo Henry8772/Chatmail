@@ -20,7 +20,7 @@
     border: 1px solid #333;
     padding: 15px;
     margin-bottom: 15px;
-    border-radius: 4px;
+    border-radius: 10px;
     background-color: #1e1e1e;
     color: #e0e0e0;
     max-width: 500px; /* Limit the maximum width */
@@ -81,7 +81,7 @@
     border: none;
     padding: 8px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 10px;
 }
   
 .setting-page .input-group input[type="file"]::-webkit-file-upload-button {
@@ -90,7 +90,7 @@
     border: none;
     padding: 8px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 10px;
 }
   
 /* Styles for the fake Add Accounts button */
@@ -100,7 +100,7 @@
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 10px;
     font-size: 16px;
     margin-top: 20px;
     transition: background-color 0.3s ease;

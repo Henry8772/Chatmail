@@ -1,0 +1,48 @@
+.meeting-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+  }
+  
+  .meeting-info {
+    background-color: #1e1e1e;
+    color: #ccc;
+    padding: 0.5rem;
+    border-bottom: 1px solid #333;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+  }
+  
+  .meeting-topic {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .attendees {
+    font-size: 1rem;
+  }
+  
+  .video-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+  }
+  
+  /* The video-player class enforces the desired size */
+  .video-player {
+    width: 80% !important;
+    height: 80% !important;
+  }
+  
+  .audio-section {
+    height: 100px;
+    background-color: #1e1e1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #333;
+    color: #ccc;
+  }

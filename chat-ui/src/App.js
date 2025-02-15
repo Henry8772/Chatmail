@@ -6,6 +6,7 @@ import EmailList from './EmailList';
 import AgentPanel from './AgentPanel';
 import Setting from './Setting';
 import './App.css';
+import Meeting from './Meeting';
 
 // 1. Import the JSON data
 import data from './data/data.json';
@@ -129,6 +130,10 @@ const App = () => {
       <Layout>
         <Route path="/" component={ChatApp} />
         <Route path="/setting" component={Setting} />
+        <Route path="/meeting" component={() => <Meeting
+          videoUrl="assets/test.mp4"
+          audioUrl="assets/test.mp3"
+        />} />
       </Layout>
     </Router>
   );

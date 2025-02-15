@@ -1,32 +1,30 @@
 html, body {
   margin: 0;
   padding: 0;
-}
-
-/* App.css */
-html, body {
-  margin: 0;
-  padding: 0;
   height: 100%;
 }
 
+/* Layout container for Banner + main content (Meeting, etc.) */
 .layout {
   display: flex;
   flex-direction: column;
   height: 100vh; /* Full viewport height */
 }
 
+/* Content takes the remaining space after the Banner */
 .content {
-  flex: 1; /* Takes the remaining space after Banner */
-  overflow: auto; /* Optional: allows scrolling if content overflows */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Existing ChatApp styles */
 .chatApp {
   display: flex;
-  margin: 0;
-  padding: 0;
   flex-direction: column;
   height: 100%;
+  margin: 0;
+  padding: 0;
   background-color: #121212; /* Dark background */
   font-family: 'Inter', sans-serif;
   color: #ccc; /* Light text */
@@ -39,5 +37,3 @@ html, body {
   padding: 1rem;
   box-sizing: border-box;
 }
-
-/* We'll also tweak the other panels to be dark. */

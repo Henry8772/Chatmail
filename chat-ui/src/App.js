@@ -87,7 +87,55 @@ const ChatApp = () => {
           sender: 'you',
           subject: 'We need to build a new feature',
           snippet: 'We should build the fanciest email client ever',
-          content: 'We should build the fanciest email client ever. Let’s discuss this in the meeting...',
+          content: `
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <meta charset="UTF-8" />
+                <title>Welcome to ChatMail</title>
+                <style>
+                  /* Inline CSS for the email */
+                  body {
+                    margin: 0;
+                    padding: 20px;
+                    font-family: Arial, sans-serif;
+                    background-color: #121212;
+                  }
+                  .container {
+                    background-color: #1e1e1e;
+                    padding: 20px;
+                    border-radius: 5px;
+                  }
+                  h1 {
+                    color: #fff;
+                  }
+                  p {
+                    line-height: 1.5;
+                  }
+                  .footer {
+                    margin-top: 20px;
+                    font-size: 12px;
+                    color: #888;
+                  }
+                </style>
+              </head>
+              <body>
+                <div class="container">
+                  <h1>Welcome to ChatMail!</h1>
+                  <p>Dear User,</p>
+                  <p>
+                    Thank you for joining ChatMail. We're excited to have you as a part of our
+                    community. Feel free to explore our features and let us know if you have any
+                    questions.
+                  </p>
+                  <p>Best regards,<br />The ChatMail Team</p>
+                </div>
+                <div class="footer">
+                  This email was sent to you by ChatMail. Please do not reply to this email.
+                </div>
+              </body>
+            </html>
+            `,
           time: 'Yesterday',
           category: 'Product',
         },

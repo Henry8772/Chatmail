@@ -152,6 +152,7 @@ const App = () => {
             <Meeting
               videoUrl="assets/test.mp4"
               audioUrl="assets/test.mp3"
+              audioText="Welcome to the ChatMail General Business Meeting! 🎉I’m ChatMail Bot, your AI host today. Here’s what we’ll cover. Our goals, Our progress,What’s next"
             />
           )}
         />

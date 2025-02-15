@@ -61,7 +61,7 @@ const Meeting = ({ videoUrl, audioUrl, audioText }) => {
           <ReactPlayer
             url={videoUrl}
             controls
-            playing={false}
+            playing={true}
             width="100%"
             height="100%"
           />
@@ -74,7 +74,7 @@ const Meeting = ({ videoUrl, audioUrl, audioText }) => {
           <ReactPlayer
             url={finalAudioUrl}
             controls
-            playing={false}
+            playing={true}
             width="100%"
             height="50px"
           />

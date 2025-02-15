@@ -3,15 +3,12 @@
 import React, { useState, useEffect } from "react";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
-import "./AgentPanel.css"; // Assume you will customize the chat UI styles here
+import "./AgentPanel.css";
 import { FaRegFileAlt, FaRegLightbulb } from "react-icons/fa";
-import { getOpenAiChatCompletion } from "./llm_caller"; // <--- Import from your new file
+import { getOpenAiChatCompletion } from "./llm_caller";
 
-
-const ragieApiKey = process.env.REACT_APP_RAGIE_API_KEY;
-
-// A custom scope for our Ragie docs, so we can search them.
-const RAGIE_SCOPE = "myEventScope";
+// 1) Import your new Ragie helper functions
+import { uploadEmailsToRagie, retrieveRelevantChunks } from "./ragie_caller";
 
 const AgentPanel = ({
   event,
@@ -28,7 +25,12 @@ const AgentPanel = ({
     suggestion: "",
     replies: [],
   });
+
+  const [isChatLoading, setIsChatLoading] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
+
+  // Track whether emails have been uploaded
   const [ragieUploaded, setRagieUploaded] = useState(false);
 
   // -----------------------------
@@ -37,35 +39,17 @@ const AgentPanel = ({
   useEffect(() => {
     if (!event || !event.emails || event.emails.length === 0) return;
 
-    // Merge all emails into one text for demonstration.
+    // Merge all emails into one text for demonstration
     const mergedEmails = event.emails.join("\n\n---\n\n");
 
-    (async function uploadEmailsToRagie() {
+    console.log("Uploading emails to Ragie...");
+
+    (async function handleUpload() {
       try {
-        // Create form data
-        const formData = new FormData();
-        // Provide custom scope or metadata. 
-        // "scope" is what we can filter on in the retrieval request.
-        formData.append("metadata", JSON.stringify({ scope: RAGIE_SCOPE }));
-        formData.append(
-          "file",
-          new Blob([mergedEmails], { type: "text/plain" }),
-          "emails.txt"
-        );
-        formData.append("mode", "fast"); // or "slow"
+        const res = await uploadEmailsToRagie(mergedEmails);
+        console.log("Ragie upload response:", res.status, res.statusText);
 
-        const res = await fetch("https://api.ragie.ai/documents", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${ragieApiKey}`,
-          },
-          body: formData,
-        });
-
-        if (!res.ok) {
-          console.error("Ragie upload failed:", res.status, res.statusText);
-          return;
-        }
+        // If we get here, it means upload succeeded
         setRagieUploaded(true);
         console.log("Uploaded emails to Ragie successfully!");
       } catch (err) {
@@ -74,11 +58,11 @@ const AgentPanel = ({
     })();
   }, [event]);
 
-  // -----------------------------
+   // -----------------------------
   // 2) When event loads, we also get a quick summarization from GPT
   // -----------------------------
   const fetchOpenAIResponse = async (content) => {
-    setIsLoading(true);
+    setIsChatLoading(true);
     try {
       const systemPrompt = `You are a helpful assistant. You will ONLY respond in valid JSON with the following format, no extra text:
       {
@@ -109,7 +93,7 @@ const AgentPanel = ({
         replies: ["No replies available."],
       };
     } finally {
-      setIsLoading(false);
+      setIsChatLoading(false);
     }
   };
 
@@ -144,8 +128,7 @@ const AgentPanel = ({
   };
 
   // -----------------------------
-  // 4) When user clicks a "reply" button,
-  //    we do a RAGIE retrieval + GPT draft
+  // 4) Handle Quick Reply
   // -----------------------------
   const handleActionClick = async (actionText) => {
     if (!ragieUploaded) {
@@ -157,29 +140,8 @@ const AgentPanel = ({
       setIsLoading(true);
 
       // 4a) Query Ragie for relevant chunks
-      const retrievalRes = await fetch("https://api.ragie.ai/retrievals", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + ragieApiKey,
-        },
-        body: JSON.stringify({
-          query: actionText,
-          rerank: true,
-          filter: { scope: RAGIE_SCOPE },
-        }),
-      });
+      const chunkText = await retrieveRelevantChunks(actionText);
 
-      if (!retrievalRes.ok) {
-        console.error(
-          `Failed to retrieve data from Ragie API: ${retrievalRes.status} ${retrievalRes.statusText}`
-        );
-        return;
-      }
-
-      const data = await retrievalRes.json();
-      const chunkText = data.scored_chunks.map((chunk) => chunk.text).join("\n\n");
-      
       // 4b) Use chunkText + user actionText to get GPT to draft a reply
       const systemPrompt = `You are "Ragie AI", a friendly AI assistant. 
       Here is all the information from the relevant documents:
@@ -189,16 +151,14 @@ const AgentPanel = ({
       The user wants to craft an email reply based on the above. 
       Draft a concise, polite, and professional email response. 
       Write your answer as pure text (no JSON).`;
-      
+
       const draftReply = await getOpenAiChatCompletion({
-        systemPrompt,             // the system instructions
-        userContent: actionText,  // the user's short query or button text
-        model: "gpt-4o",          // which model to use
+        systemPrompt,
+        userContent: actionText,
+        model: "gpt-4o",
         maxTokens: 300,
         temperature: 0.7,
       });
-      
-
 
       // 4c) Add the GPT draft to the conversation
       setMessages((prev) => [
@@ -310,8 +270,7 @@ const AgentPanel = ({
           Send
         </button>
       </div>
-    </div>
-  );
+    </div> );
 };
 
 export default AgentPanel;

@@ -81,9 +81,8 @@ const ChatApp = () => {
           onSelectEvent={setSelectedEventId}
         />
 
-        {/* MIDDLE: Conditionally render EmailList */}
 
-        {/* RIGHT PANEL: AgentPanel with toggle props */}
+        {/* MIDDLE PANEL: AgentPanel with toggle props */}
         <AgentPanel
           event={currentEvent}
           messages={messages}

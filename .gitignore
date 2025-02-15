@@ -1,2 +1,3 @@
 chat-ui/.env
 .DS_Store
+backend/.env

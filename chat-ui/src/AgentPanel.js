@@ -45,6 +45,10 @@ const AgentPanel = ({
     setIsLoading(true);
     try {
       const systemPrompt = `You are a helpful assistant. You will ONLY respond in valid JSON with the following format, no extra text:
+      User name is Alice, she is a senior product manager at ChatMail.
+      For summary, write a concise summary that covers all the key points.
+      For suggestions, write a suggestion that is actionable and helpful.
+      For replies, write a replies that is concise with at max 4 words, each reflect different strategies.
       {
         "summary": "string",
         "suggestion": "string",
@@ -87,11 +91,54 @@ const AgentPanel = ({
 
   // Summarize on-demand
   const handleSendMessage = async () => {
+    // 1) Send the newly typed user message to the chat with "USER" prefix
     sendMessage(message, "USER");
-    const newData = await fetchOpenAIResponse(event.summary + "\n" + message);
-    sendMessage(newData, "AI");
-    setMessage("");
+  
+    // 2) Build conversation array from ALL messages so far
+    //    by stripping off the first 6 characters (USER / AI) and
+    //    mapping them to { role: "user" | "assistant", content: string }
+    const conversationHistory = messages.map((m) => {
+      if (m.text.startsWith("USER")) {
+        return { role: "user", content: m.text.substring(6).trim() };
+      } else if (m.text.startsWith("AI")) {
+        return { role: "assistant", content: m.text.substring(6).trim() };
+      }
+      // If you ever introduce "system" messages, handle them similarly:
+      // else if (m.text.startsWith("SYSTEM")) {
+      //   return { role: "system", content: m.text.substring(6).trim() };
+      // }
+      return null;
+    }).filter(Boolean);
+  
+    // Also push the brand-new user message into conversation
+    conversationHistory.push({ role: "user", content: message });
+  
+    // 3) Call your LLM with the complete conversation
+    try {
+      setIsChatLoading(true);
+  
+      // For example, if your getOpenAiChatCompletion can take a `conversation` array:
+      const systemPrompt = `You are a helpful assistant who strictly returns valid answers.
+  Do not include additional commentary. Just answer.`;
+  
+      const assistantMessage = await getOpenAiChatCompletion({
+        systemPrompt,
+        conversation: conversationHistory,
+        model: "gpt-4o-mini",
+        maxTokens: 300,
+        temperature: 0.7,
+      });
+  
+      // 4) Send the assistant's new message with "AI" prefix
+      sendMessage(assistantMessage, "AI");
+    } catch (error) {
+      console.error("Error during AI completion:", error);
+    } finally {
+      setIsChatLoading(false);
+      setMessage(""); // Clear text input
+    }
   };
+  
 
   // Handle Quick Reply
   const handleActionClick = async (actionText) => {

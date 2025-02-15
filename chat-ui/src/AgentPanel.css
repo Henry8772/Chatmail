@@ -172,6 +172,10 @@
   color: #ccc;
 }
 
+.refLink {
+  color: #0066ff;
+}
+
 .chatInputArea input::placeholder {
   color: #666;
 }

@@ -24,33 +24,93 @@ const AgentPanel = ({
   const [ragieUploaded, setRagieUploaded] = useState(false);
   const [replies, setReplies] = useState([]);
 
+  // For the popup to show references
+  const [showReferencePopup, setShowReferencePopup] = useState(false); 
+  const [highlightedEmailText, setHighlightedEmailText] = useState(""); 
+  const [referenceTitle, setReferenceTitle] = useState(""); // can store the clicked phrase
+
   const messagesEndRef = useRef(null);
 
-  // 2. Whenever messages (or isChatLoading) changes, scroll the chat to the bottom
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages, isChatLoading]);
 
-  // Upload emails to Ragie
   useEffect(() => {
     if (!event || !event.emails || event.emails.length === 0) return;
     const mergedEmails = JSON.stringify(event.emails);
-    console.log("Uploading emails to Ragie...", mergedEmails);
     (async function handleUpload() {
       try {
         const res = await uploadEmailsToRagie(mergedEmails);
-        console.log("Ragie upload response:", res.status, res.statusText);
         setRagieUploaded(true);
-        console.log("Uploaded emails to Ragie successfully!");
       } catch (err) {
         console.error("Error uploading emails to Ragie:", err);
       }
     })();
   }, [event]);
 
-  // Summarization from GPT on load
+  /**
+   * 2) The new function that calls GPT again to link the summary phrases
+   *    to references in the original email. In your real prompt,
+   *    you'll want GPT to return a structure or HTML that maps summary phrases 
+   *    to the original text. 
+   *    This example simply returns JSON with each "keyword/phrase" 
+   *    plus the substring from the email, plus an HTML snippet you can render.
+   */
+  const fetchReferencedSummary = async (originalEmail, summary) => {
+    try {
+      const systemPrompt = `
+        You are a "summary linking" agent.
+        Given the original email below and a summary,
+        produce a JSON object with an "annotatedSummary" field 
+        containing valid HTML in which each key phrase in the summary is wrapped in 
+        <span class="refLink" data-ref="..."> ... </span>
+        The data-ref attribute should hold a snippet or location from the original email.
+
+        Example minimal JSON:
+        {
+          "annotatedSummary": "Here is a <span class='refLink' data-ref='original snippet here'>key phrase</span> we found..."
+        }
+
+        Also ensure it is a valid JSON (no extra text).
+      `;
+
+      const userContent = `
+Original Email:
+"""${originalEmail}"""
+
+Summary:
+"${summary}"
+      `;
+
+      const response = await getOpenAiChatCompletion({
+        systemPrompt,
+        userContent,
+        model: "gpt-4o-mini",
+        maxTokens: 400,
+        temperature: 0.3,
+      });
+
+      console.log("Referenced summary response:", response);
+
+      // The response is expected to be JSON of the form:
+      // {
+      //   "annotatedSummary": "<p>some text <span class='refLink' data-ref='...'/> more text </p>"
+      // }
+      const data = JSON.parse(response);
+      return data.annotatedSummary || summary; 
+    } catch (error) {
+      console.error("Error in fetchReferencedSummary:", error);
+      // fallback: just return the summary
+      return summary;
+    }
+  };
+
+  /**
+   * 1) The original fetch for the summarization. 
+   *    After we get the summary, we also do the "linking" call.
+   */
   const fetchOpenAIResponse = async (content) => {
     setIsLoading(true);
     try {
@@ -76,6 +136,10 @@ const AgentPanel = ({
       });
 
       const data = JSON.parse(assistantMessage);
+
+      // Save the standard summary
+      setOpenAIResponse(data);
+
       return data;
     } catch (error) {
       console.error("Error fetching OpenAI response:", error);
@@ -86,25 +150,34 @@ const AgentPanel = ({
       };
     } finally {
       setIsLoading(false);
+      secondFunction(content);
     }
   };
+
+  const secondFunction = async (content) => {
+    // 3) Call the second GPT to link summary phrases -> original email text
+    const linkedSummary = await fetchReferencedSummary(content, openAIResponse.summary);
+
+    setOpenAIResponse((prev) => ({
+
+      ...prev,
+      summary: linkedSummary,
+    })); // clear the previous response
+
+  }
 
   // On event load, do quick summarization
   useEffect(() => {
     if (event && event.summary) {
       (async () => {
-        const newData = await fetchOpenAIResponse(event.summary);
-        setOpenAIResponse(newData);
+        await fetchOpenAIResponse(event.summary);
       })();
     }
   }, [event]);
 
-  // Send message and handle conversation
+  // The normal handleSendMessage
   const handleSendMessage = async () => {
-    // 1) Send the newly typed user message
     sendMessage(message, "USER");
-
-    // 2) Build conversation array from ALL messages so far
     const conversationHistory = messages
       .map((m) => {
         if (m.text.startsWith("USER")) {
@@ -116,10 +189,8 @@ const AgentPanel = ({
       })
       .filter(Boolean);
 
-    // Also push the brand-new user message
     conversationHistory.push({ role: "user", content: message });
 
-    // 3) Call your LLM with the complete conversation
     try {
       setIsChatLoading(true);
 
@@ -134,7 +205,6 @@ Do not include additional commentary. Just answer.`;
         temperature: 0.7,
       });
 
-      // 4) Send the assistant's new message
       sendMessage(assistantMessage, "AI");
     } catch (error) {
       console.error("Error during AI completion:", error);
@@ -144,7 +214,7 @@ Do not include additional commentary. Just answer.`;
     }
   };
 
-  // Handle Quick Reply
+  // Quick Reply
   const handleActionClick = async (actionText) => {
     if (!ragieUploaded) {
       alert("Emails have not yet been uploaded to Ragie or failed to upload.");
@@ -154,14 +224,9 @@ Do not include additional commentary. Just answer.`;
       setIsChatLoading(true);
       sendMessage(actionText, "USER");
 
-      // Query Ragie for relevant chunks
-      // const chunkText = await retrieveRelevantChunks("Find details in emails related to " + actionText);
-      // console.log("Retrieved chunk text:", chunkText);
-
-      // Get last 5 emails 
+      // Just for example we pass last 5 emails
       const chunkText = JSON.stringify(event.emails.slice(-5));
 
-      // Use chunkText + user actionText to get GPT to draft a reply
       const systemPrompt = `You are "Chatmail AI," a friendly AI assistant. Below is information from the relevant documents:
 
 ===
@@ -180,7 +245,7 @@ Provide your response in the following JSON format:
       const draftReply = await getOpenAiChatCompletion({
         systemPrompt,
         userContent: actionText,
-        model: "gpt-4o",
+        model: "gpt-4o-mini",
         maxTokens: 300,
         temperature: 0.7,
       });
@@ -191,8 +256,6 @@ Provide your response in the following JSON format:
 
       sendMessage(email, "AI");
       setReplies(replies);
-
-      // **Ensure new replies are also stored in openAIResponse:**
       setOpenAIResponse((prev) => ({
         ...prev,
         replies,
@@ -202,6 +265,40 @@ Provide your response in the following JSON format:
     } finally {
       setIsChatLoading(false);
     }
+  };
+
+  /**
+   * Handler for reference clicks in the annotated summary. 
+   * We read `data-ref` to know which portion to highlight, then show a popup.
+   */
+  const handleReferenceClick = (event) => {
+    const refSpan = event.target.closest("span.refLink");
+    if (!refSpan) return;
+    const snippet = refSpan.getAttribute("data-ref");
+    const phrase = refSpan.textContent || "";
+
+    // Example approach: highlight snippet in the original email
+    // For simplicity, let's use the first email in event.emails
+    // You can adjust to whichever email or the entire thread.
+    if (!event.emails || event.emails.length === 0) return;
+
+    const originalEmail = event.emails[0].text || ""; 
+    // We'll do a naive highlight: replace snippet with <mark>snippet</mark>
+
+    const safeSnippet = (snippet || "").replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const highlightRegex = new RegExp(safeSnippet, "gi");
+    const highlighted = originalEmail.replace(highlightRegex, (match) => `<mark>${match}</mark>`);
+
+    setHighlightedEmailText(highlighted);
+    setReferenceTitle(phrase);
+    setShowReferencePopup(true);
+  };
+
+  // Close the reference popup
+  const closeReferencePopup = () => {
+    setShowReferencePopup(false);
+    setHighlightedEmailText("");
+    setReferenceTitle("");
   };
 
   // Render
@@ -231,9 +328,21 @@ Provide your response in the following JSON format:
           </div>
         ) : (
           <>
+            {/* 
+              Instead of just showing openAIResponse.summary, 
+              we show annotatedSummary (the clickable version) if available. 
+            */}
             <p className="summaryText">
-              <FaRegFileAlt className="summaryIcon" /> {openAIResponse.summary}
+              <FaRegFileAlt className="summaryIcon" />
+                <span
+                  onClick={handleReferenceClick} 
+                  // The onClick can bubble up from spans inside 
+                  // (you can also attach to each span individually)
+                  dangerouslySetInnerHTML={{ __html: openAIResponse.summary }}
+                />
+              
             </p>
+
             <p className="suggestionText">
               <FaRegLightbulb className="suggestionIcon" />{" "}
               {openAIResponse.suggestion}
@@ -269,15 +378,14 @@ Provide your response in the following JSON format:
           displayedText = m.text.substring(6).trim();
 
           return (
-            <div key={m.id} 
-            className={`chatBubble ${senderClass}`}
-            dangerouslySetInnerHTML={{ __html: displayedText }}>
-              {/* {displayedText} */}
-            </div>
+            <div
+              key={m.id}
+              className={`chatBubble ${senderClass}`}
+              dangerouslySetInnerHTML={{ __html: displayedText }}
+            />
           );
         })}
 
-        {/* Show AI "thinking" bubble if needed */}
         {isChatLoading && (
           <div className="chatBubble aiMessage">
             <div className="loadingDots">
@@ -289,10 +397,6 @@ Provide your response in the following JSON format:
           </div>
         )}
 
-        {/* 
-          NEW: Quick replies are now displayed as part 
-          of the chat messages area, in a "systemMessage" bubble.
-        */}
         {openAIResponse.replies && openAIResponse.replies.length > 0 && (
           <div className="systemMessage">
             <p className="quickRepliesLabel">Suggested replies:</p>
@@ -321,7 +425,7 @@ Provide your response in the following JSON format:
       <div className="chatInputArea">
         <input
           type="text"
-          placeholder='Ask me anything'
+          placeholder="Ask me anything"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={(e) => {
@@ -334,6 +438,20 @@ Provide your response in the following JSON format:
           Send
         </button>
       </div>
+
+      {/* 4) A simple popup/modal to show the original email text with highlight */}
+      {showReferencePopup && (
+        <div className="popupBackdrop" onClick={closeReferencePopup}>
+          <div className="popupModal" onClick={(e) => e.stopPropagation()}>
+            <h4>Reference for: {referenceTitle}</h4>
+            <div
+              className="highlightedEmailView"
+              dangerouslySetInnerHTML={{ __html: highlightedEmailText }}
+            />
+            <button onClick={closeReferencePopup}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

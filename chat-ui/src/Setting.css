@@ -26,86 +26,41 @@
     max-width: 500px; /* Limit the maximum width */
 }
   
+/* General styling for input groups to ensure alignment */
 .setting-page .input-group {
+    display: flex;
+    align-items: center;
     margin-top: 10px;
 }
-  
-/* Default styling for inputs inside input groups */
+
+/* Set a fixed width for all labels in the input groups */
+.setting-page .input-group label {
+    width: 120px;       /* Adjust this value as needed */
+    margin-right: 8px;
+    white-space: nowrap;
+}
+
+/* All input fields take up the remaining space */
 .setting-page .input-group input[type="text"],
 .setting-page .input-group input[type="file"] {
-    display: block;
-    margin-top: 5px;
+    flex: 1;
+    margin-top: 0;
     padding: 8px;
-    width: 100%;
-    max-width: 400px;
     background-color: #1e1e1e;
     color: #e0e0e0;
 }
-  
+
+/* Specific styling for text inputs */
 .setting-page .input-group input[type="text"] {
     border: 1px solid #444;
 }
-  
+
+/* File input styling remains the same */
 .setting-page .input-group input[type="file"] {
     background-color: #1e1e1e;
 }
-  
-/* Personality group: display label and input inline */
-.setting-page .personality-group {
-    display: flex;
-    align-items: center;
-}
-  
-.setting-page .personality-group label {
-    margin-right: 8px;
-    white-space: nowrap;
-}
-  
-.setting-page .personality-group input[type="text"] {
-    display: inline-block;
-    margin-top: 0;
-    width: auto;
-    flex: 1;
-    max-width: 400px;
-}
-  
-/* Alias group: display label and input inline */
-.setting-page .alias-group {
-    display: flex;
-    align-items: center;
-}
-  
-.setting-page .alias-group label {
-    margin-right: 8px;
-    white-space: nowrap;
-}
-  
-.setting-page .alias-group input[type="text"] {
-    display: inline-block;
-    margin-top: 0;
-    width: auto;
-    flex: 1;
-    max-width: 400px;
-}
-  
-/* Knowledge group: display label, file input, and upload info inline */
-.setting-page .knowledge-group {
-    display: flex;
-    align-items: center;
-}
-  
-.setting-page .knowledge-group label {
-    margin-right: 8px;
-    white-space: nowrap;
-}
-  
-.setting-page .knowledge-group input[type="file"] {
-    display: inline-block;
-    margin-top: 0;
-    width: auto;
-    max-width: none;
-}
-  
+
+/* Knowledge group: add some spacing for the upload info */
 .setting-page .knowledge-group .upload-info {
     margin-left: 8px;
     font-size: 10px;
@@ -122,7 +77,7 @@
 /* Style the file upload button */
 .setting-page .input-group input[type="file"]::file-selector-button {
     background-color: #666;
-    color: #fff; /* Optional: change text color if needed */
+    color: #fff;
     border: none;
     padding: 8px;
     cursor: pointer;
